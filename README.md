@@ -411,187 +411,251 @@ Educational / Learning Project
 **MiniRelDB — Understanding Databases by Building One.**
 
 
+---
 
+```markdown
+## 🚀 Why This Next Step Exists
 
+Until now, this project relied on external databases like **SQLite** through JDBC.
 
+Architecture looked like this:
 
+```
 
-🚀 Why This Next Step Exists
+Your Program → SQLite → Disk Storage
 
-Until now, the project relied on external databases like SQLite through JDBC.
+````
 
-That means:
+SQLite was responsible for all internal database operations such as:
 
-Your program → SQLite → Disk Storage
+- Storage management
+- File handling
+- Query execution
+- Data retrieval
 
-SQLite was doing all the real database work internally.
+However, the goal of this project is **not just to use a database**, but to **understand how databases are built internally**.
 
-However, the goal of this project is not to use a database, but to understand how databases are built internally.
+👉 The next step is:
 
-So the next step is:
+> ✅ Become the **database engine** instead of a **database user**.
 
-✅ Become the database engine instead of a database user.
+---
 
-🧠 Core Learning Objective
-Understand Logical Storage vs Physical Storage
+## 🧠 Core Learning Objective
 
-Every real DBMS (like MySQL, PostgreSQL, Oracle) separates data into two layers:
+### Understand **Logical Storage vs Physical Storage**
 
-✅ 1. Logical Layer (User View)
+Every real DBMS (such as **MySQL**, **PostgreSQL**, or **Oracle**) separates data handling into two layers.
 
-This is what users think happens.
+---
+
+## ✅ 1. Logical Layer (User View)
+
+This represents what users believe happens inside a database.
 
 Example commands:
 
+```sql
 CREATE TABLE users
 INSERT INTO users VALUES Ronak
 SELECT * FROM users
+````
 
 From the user’s perspective:
 
-Tables exist
+* Tables exist
+* Rows are inserted
+* Queries return results
 
-Rows are inserted
+Users **never see how data is physically stored**.
 
-Queries return results
+---
 
-Users never see how data is stored.
+## ✅ 2. Physical Layer (Disk Reality)
 
-✅ 2. Physical Layer (Disk Reality)
-
-Internally, databases store data as files.
+Internally, databases store data as files on disk.
 
 Example:
 
+```
 data/users.csv
+```
 
 Actual stored data:
 
+```
 id,name
 1,Ronak
 2,Bhavya
+```
 
-Meaning:
+### Logical vs Physical Mapping
 
-Logical Concept	Physical Representation
-Table	File
-Row	Line in file
-Column	Comma-separated value
-Insert	File append
-Select	File read
+| Logical Concept | Physical Representation |
+| --------------- | ----------------------- |
+| Table           | File                    |
+| Row             | Line in file            |
+| Column          | Comma-separated value   |
+| Insert          | File append             |
+| Select          | File read               |
 
-This separation is the foundation of DBMS design.
+This separation forms the **foundation of DBMS design**.
 
-❗ Why Remove SQLite?
+---
+
+## ❗ Why Remove SQLite?
 
 SQLite already provides:
 
-Storage management
+* Storage management
+* File abstraction
+* Query processing
+* Persistent storage
 
-File handling
+If SQLite remains in the project:
 
-Query execution
+> ❌ You never learn how databases actually work internally.
 
-Data retrieval
+Removing SQLite forces implementation of:
 
-If SQLite remains:
+* ✅ Disk storage
+* ✅ Record persistence
+* ✅ Table-to-file mapping
+* ✅ Data retrieval mechanisms
 
-👉 You never learn how databases actually work.
+This is exactly how real database engines begin.
 
-Removing SQLite forces you to implement:
+---
 
-✅ Disk storage
-✅ Record persistence
-✅ Table mapping
-✅ Data retrieval
+## 🗂️ New System Architecture
 
-This is how real database engines begin.
-
-🗂️ New System Architecture
-
-The project now moves toward a mini relational database engine.
+The project now evolves into a **Mini Relational Database Engine**.
 
 Recommended structure:
 
+```
 MiniRelDB/
 │
-├── data/                 ← Physical storage
+├── data/                 # Physical storage layer
 │
 ├── src/
 │   ├── Main.java
 │   ├── Table.java
 │   ├── StorageManager.java
 │   └── Record.java
-📁 Why CSV Storage?
+```
 
-For Week-1, CSV is preferred over JSON.
+---
 
-CSV	JSON
-Very simple	Structurally complex
-Row-based	Object-based
-Fast to implement	Requires parsing logic
-Matches relational tables	Better for nested data
+## 📁 Why CSV Storage?
 
-CSV directly represents relational rows.
+For Week-1 implementation, **CSV** is preferred over JSON.
 
-⚙️ How the System Works
-✅ CREATE TABLE
-Logical Command
+| CSV                       | JSON                   |
+| ------------------------- | ---------------------- |
+| Very simple               | Structurally complex   |
+| Row-based                 | Object-based           |
+| Fast implementation       | Requires parsing logic |
+| Matches relational tables | Better for nested data |
+
+CSV naturally represents relational database rows.
+
+---
+
+## ⚙️ How the System Works
+
+---
+
+### ✅ CREATE TABLE
+
+**Logical Command**
+
+```
 CREATE users
-Engine Operation
+```
 
-Create file inside /data
+**Engine Operation**
 
-Initialize table header
+* Create a file inside `/data`
+* Initialize table structure
 
 Example:
 
+```
 data/users.csv
+```
 
-Code concept:
+Implementation concept:
 
+```java
 new File("data/users.csv").createNewFile();
-✅ INSERT RECORD
-Logical Command
-INSERT users Ronak
-Engine Operation
+```
 
-Append a new line to file
+---
+
+### ✅ INSERT RECORD
+
+**Logical Command**
+
+```
+INSERT users Ronak
+```
+
+**Engine Operation**
+
+Append a new row to the file.
 
 Example result:
 
+```
 1,Ronak
 2,Bhavya
+```
 
-Why append?
+#### Why append instead of rewrite?
 
-✅ Faster
-✅ Mimics real DB write operations
-✅ Avoids rewriting entire file
+* ✅ Faster disk operation
+* ✅ Mimics real database writes
+* ✅ Prevents full file overwrite
 
 Implementation idea:
 
+```java
 FileWriter(file, true);
-✅ DISPLAY RECORDS (SELECT)
-Logical Command
+```
+
+---
+
+### ✅ DISPLAY RECORDS (SELECT)
+
+**Logical Command**
+
+```
 SELECT users
-Engine Operation
+```
 
-Read CSV file line-by-line
+**Engine Operation**
 
-Display records
+* Read CSV file line-by-line
+* Display stored records
 
 Implementation idea:
 
+```java
 BufferedReader
+```
 
-Why line-by-line reading?
+#### Why line-by-line reading?
 
-✅ Memory efficient
-✅ Works for large datasets
-✅ Similar to database scanning
+* ✅ Memory efficient
+* ✅ Scales to large datasets
+* ✅ Similar to database table scanning
 
-🧩 Internal Flow
+---
+
+## 🧩 Internal Flow
+
+```
 User Command
       ↓
 Command Parser
@@ -599,18 +663,24 @@ Command Parser
 Storage Manager
       ↓
 CSV File (Disk)
+```
 
-You are now implementing:
+At this stage, you are implementing the:
 
-Storage Layer of a Database
+> **Storage Layer of a Database**
 
-🎯 Purpose of This Step
+---
 
-This phase teaches:
+## 🎯 Purpose of This Step
 
-✅ How tables map to files
-✅ How records persist after program shutdown
-✅ How databases store rows physically
-✅ Difference between abstraction and implementation
+This phase helps in understanding:
 
-Without this step, advanced DBMS topics cannot be understood.
+* ✅ How tables map to physical files
+* ✅ How records persist after program shutdown
+* ✅ How databases store rows on disk
+* ✅ Difference between abstraction and implementation
+
+Without mastering this layer, advanced DBMS concepts cannot be properly understood.
+
+```
+
