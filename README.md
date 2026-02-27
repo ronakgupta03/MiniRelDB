@@ -409,3 +409,208 @@ Educational / Learning Project
 ---
 
 **MiniRelDB — Understanding Databases by Building One.**
+
+
+
+
+
+
+
+🚀 Why This Next Step Exists
+
+Until now, the project relied on external databases like SQLite through JDBC.
+
+That means:
+
+Your program → SQLite → Disk Storage
+
+SQLite was doing all the real database work internally.
+
+However, the goal of this project is not to use a database, but to understand how databases are built internally.
+
+So the next step is:
+
+✅ Become the database engine instead of a database user.
+
+🧠 Core Learning Objective
+Understand Logical Storage vs Physical Storage
+
+Every real DBMS (like MySQL, PostgreSQL, Oracle) separates data into two layers:
+
+✅ 1. Logical Layer (User View)
+
+This is what users think happens.
+
+Example commands:
+
+CREATE TABLE users
+INSERT INTO users VALUES Ronak
+SELECT * FROM users
+
+From the user’s perspective:
+
+Tables exist
+
+Rows are inserted
+
+Queries return results
+
+Users never see how data is stored.
+
+✅ 2. Physical Layer (Disk Reality)
+
+Internally, databases store data as files.
+
+Example:
+
+data/users.csv
+
+Actual stored data:
+
+id,name
+1,Ronak
+2,Bhavya
+
+Meaning:
+
+Logical Concept	Physical Representation
+Table	File
+Row	Line in file
+Column	Comma-separated value
+Insert	File append
+Select	File read
+
+This separation is the foundation of DBMS design.
+
+❗ Why Remove SQLite?
+
+SQLite already provides:
+
+Storage management
+
+File handling
+
+Query execution
+
+Data retrieval
+
+If SQLite remains:
+
+👉 You never learn how databases actually work.
+
+Removing SQLite forces you to implement:
+
+✅ Disk storage
+✅ Record persistence
+✅ Table mapping
+✅ Data retrieval
+
+This is how real database engines begin.
+
+🗂️ New System Architecture
+
+The project now moves toward a mini relational database engine.
+
+Recommended structure:
+
+MiniRelDB/
+│
+├── data/                 ← Physical storage
+│
+├── src/
+│   ├── Main.java
+│   ├── Table.java
+│   ├── StorageManager.java
+│   └── Record.java
+📁 Why CSV Storage?
+
+For Week-1, CSV is preferred over JSON.
+
+CSV	JSON
+Very simple	Structurally complex
+Row-based	Object-based
+Fast to implement	Requires parsing logic
+Matches relational tables	Better for nested data
+
+CSV directly represents relational rows.
+
+⚙️ How the System Works
+✅ CREATE TABLE
+Logical Command
+CREATE users
+Engine Operation
+
+Create file inside /data
+
+Initialize table header
+
+Example:
+
+data/users.csv
+
+Code concept:
+
+new File("data/users.csv").createNewFile();
+✅ INSERT RECORD
+Logical Command
+INSERT users Ronak
+Engine Operation
+
+Append a new line to file
+
+Example result:
+
+1,Ronak
+2,Bhavya
+
+Why append?
+
+✅ Faster
+✅ Mimics real DB write operations
+✅ Avoids rewriting entire file
+
+Implementation idea:
+
+FileWriter(file, true);
+✅ DISPLAY RECORDS (SELECT)
+Logical Command
+SELECT users
+Engine Operation
+
+Read CSV file line-by-line
+
+Display records
+
+Implementation idea:
+
+BufferedReader
+
+Why line-by-line reading?
+
+✅ Memory efficient
+✅ Works for large datasets
+✅ Similar to database scanning
+
+🧩 Internal Flow
+User Command
+      ↓
+Command Parser
+      ↓
+Storage Manager
+      ↓
+CSV File (Disk)
+
+You are now implementing:
+
+Storage Layer of a Database
+
+🎯 Purpose of This Step
+
+This phase teaches:
+
+✅ How tables map to files
+✅ How records persist after program shutdown
+✅ How databases store rows physically
+✅ Difference between abstraction and implementation
+
+Without this step, advanced DBMS topics cannot be understood.
