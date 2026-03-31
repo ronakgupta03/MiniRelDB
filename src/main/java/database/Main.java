@@ -35,6 +35,10 @@ public class Main {
           // 🔹 HeapFile test (REAL DB behavior)
             HeapFile heapFile = new HeapFile(dm);
 
+            Executor executor = new Executor(heapFile, dm);
+
+            
+
             heapFile.insertRecord(new DBRecord(1, "Alice"));
             heapFile.insertRecord(new DBRecord(2, "Bob"));
             heapFile.insertRecord(new DBRecord(3, "Charlie"));          
