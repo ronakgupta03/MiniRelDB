@@ -1,6 +1,7 @@
 package query;
 
 public class InsertQuery {
+
     private int id;
     private String name;
 
@@ -17,4 +18,3 @@ public class InsertQuery {
         return name;
     }
 }
-

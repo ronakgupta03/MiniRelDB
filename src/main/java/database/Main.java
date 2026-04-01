@@ -1,5 +1,8 @@
 import java.util.List;
+import java.util.Scanner;
 
+import query.CommandParser;
+import query.*;
 import storage.*;
 
 public class Main {
@@ -36,29 +39,50 @@ public class Main {
             HeapFile heapFile = new HeapFile(dm);
 
             Executor executor = new Executor(heapFile, dm);
+            Scanner scanner = new Scanner(System.in);
 
-            
+            System.out.println("MiniRelDB started. Type commands (EXIT to quit)");
 
-            heapFile.insertRecord(new DBRecord(1, "Alice"));
-            heapFile.insertRecord(new DBRecord(2, "Bob"));
-            heapFile.insertRecord(new DBRecord(3, "Charlie"));          
-            
-            heapFile.flush(); // VERY IMPORTANT to flush remaining data to disk!
+            while (true) {
 
+                System.out.print("> ");
+                String input = scanner.nextLine();
 
+                // EXIT
+                if (input.equalsIgnoreCase("EXIT")) {
+                    heapFile.flush();
+                    System.out.println("Database saved. Exiting...");
+                    break;
+                }
 
-
-             // // Step 4: Read from disk
-            Page readPage = dm.readPage(0);
-
-
-            List<DBRecord> records = readPage.getAllRecords();
-
-            System.out.println("Records in page 0:");
-
-            for (DBRecord record : records) {
-                System.out.println(record);
+                try {
+                    Object query = CommandParser.parse(input);
+                    executor.execute(query);
+                } catch (Exception e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
             }
+
+            // heapFile.insertRecord(new DBRecord(1, "Alice"));
+            // heapFile.insertRecord(new DBRecord(2, "Bob"));
+            // heapFile.insertRecord(new DBRecord(3, "Charlie"));          
+            
+            // heapFile.flush(); // VERY IMPORTANT to flush remaining data to disk!
+
+
+
+
+            //  // // Step 4: Read from disk
+            // Page readPage = dm.readPage(0);
+
+
+            // List<DBRecord> records = readPage.getAllRecords();
+
+            // System.out.println("Records in page 0:");
+
+            // for (DBRecord record : records) {
+            //     System.out.println(record);
+            // }
 
         } catch (Exception e) {
             e.printStackTrace();

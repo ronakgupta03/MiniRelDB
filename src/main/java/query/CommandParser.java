@@ -1,12 +1,13 @@
 package query;
 
-public abstract class CommandParser {
-    
+public class CommandParser {
+
     public static Object parse(String input) {
-        
+
         String[] parts = input.trim().split(" ");
         String command = parts[0].toUpperCase();
 
+        // INSERT
         if (command.equals("INSERT")) {
 
             if (parts.length < 3) {
@@ -19,6 +20,7 @@ public abstract class CommandParser {
             return new InsertQuery(id, name);
         }
 
+        // SELECT
         if (command.equals("SELECT")) {
             return new SelectQuery();
         }
