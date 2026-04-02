@@ -1,5 +1,8 @@
 import storage.*;
 import query.*;
+import java.util.Scanner;
+import java.util.List;
+
 
 public class Main {
 
@@ -11,12 +14,43 @@ public class Main {
 
             Executor executor = new Executor(heapFile);
 
-
+            Scanner sc = new Scanner(System.in);
+            String exit = "";
             
-            // Simulating INSERT query
-            executor.executeInsert(new InsertQuery(1, "Alice Smith"));
-            executor.executeInsert(new InsertQuery(2, "Bob Johnson"));
-            executor.executeInsert(new InsertQuery(3, "Charlie Brown"));
+            while(!exit.equals("exit")){
+
+                System.out.print("Enter query: ");
+                String query = sc.nextLine().trim();
+                if (query.toLowerCase().equals("exit")) {
+                    exit = query.toLowerCase();
+                    continue;
+                }
+                
+                try {
+                    sqlParser parser = new sqlParser(query);
+                    Object parsedQuery = parser.parse();
+                    
+                    if (parsedQuery instanceof InsertQuery) {
+                        executor.executeInsert((InsertQuery) parsedQuery);
+                        System.out.println("Insert executed.");
+                    } else if (parsedQuery instanceof SelectQuery) {
+                        List<DBRecord> results = executor.executeSelect((SelectQuery) parsedQuery);
+                        System.out.println("Select results:");
+                        for (DBRecord record : results) {
+                            System.out.println("ID: " + record.getId() + ", Name: " + record.getName());
+                        }
+                    } else if (parsedQuery instanceof UpdateQuery) {
+                        executor.executeUpdate((UpdateQuery) parsedQuery);
+                        System.out.println("Update executed.");
+                    } else if (parsedQuery instanceof DeleteQuery) {
+                        executor.executeDelete((DeleteQuery) parsedQuery);
+                        System.out.println("Delete executed.");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
+            }
+            sc.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

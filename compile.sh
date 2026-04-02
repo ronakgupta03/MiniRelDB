@@ -1,1 +1,2 @@
-javac -d out src/main/java/query/*.java src/main/java/database/*.java src/main/java/storage/*.java
+javac -d out src/main/java/**/*.java
+java -cp out Main

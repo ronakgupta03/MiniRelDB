@@ -36,4 +36,9 @@ public class DiskManager {
 
         return page;
     }
+
+    public int getPageCount() throws IOException {
+        long length = dbFile.length();
+        return (int) (length / Page.PAGE_SIZE);
+    }
 }
