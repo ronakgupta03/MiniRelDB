@@ -21,8 +21,10 @@ public class Main {
 
                 System.out.print("Enter query: ");
                 String query = sc.nextLine().trim();
-                if (query.toLowerCase().equals("exit")) {
-                    exit = query.toLowerCase();
+                query = query.toLowerCase();
+                if (query.equals("exit")) {
+                    exit = query;
+                    System.out.println("Exiting...");
                     continue;
                 }
                 
