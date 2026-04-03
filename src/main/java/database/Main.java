@@ -46,10 +46,18 @@ public class Main {
             while (true) {
 
                 System.out.print("> ");
-                String input = scanner.nextLine();
+                String input;
+                try {
+                    input = scanner.nextLine();
+                } catch (java.util.NoSuchElementException e) {
+                    // EOF (e.g., piped input ended)
+                    heapFile.flush();
+                    System.out.println("Database saved. Exiting...");
+                    break;
+                }
 
-                // EXIT
-                if (input.equalsIgnoreCase("EXIT")) {
+                // EXIT / QUIT
+                if (input.equalsIgnoreCase("EXIT") || input.equalsIgnoreCase("QUIT")) {
                     heapFile.flush();
                     System.out.println("Database saved. Exiting...");
                     break;

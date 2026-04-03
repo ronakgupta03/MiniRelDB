@@ -25,7 +25,13 @@ public class DiskManager {
 
     public Page readPage(int pageId) throws IOException {
 
-        long offset = pageId * Page.PAGE_SIZE;
+        long fileSize = dbFile.length();
+        long offset = (long) pageId * Page.PAGE_SIZE;
+
+        // Boundary validation
+        if (offset < 0 || offset >= fileSize) {
+            return new Page(pageId); // empty page
+        }
 
         dbFile.seek(offset);
 

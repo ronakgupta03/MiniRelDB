@@ -36,6 +36,14 @@ public class DBRecord {
         return id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int size() {
+        return 4 + 4 + name.getBytes(StandardCharsets.UTF_8).length;
+    }
+
     // // 🔹 Deserialization (Converting bytes -> object)
     // public static DBRecord fromBytes(byte[] data) {
 

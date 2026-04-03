@@ -27,8 +27,6 @@ public class Executor {
         // SELECT
         else if (query instanceof SelectQuery) {
 
-            System.out.println("---- ALL RECORDS ----");
-
             List<DBRecord> allRecords = new java.util.ArrayList<>();
 
             int totalPages = diskManager.getTotalPages();
@@ -53,9 +51,16 @@ public class Executor {
             allRecords.sort((a, b) -> Integer.compare(a.getId(), b.getId()));
 
             // 🔹 Print
-            for (DBRecord r : allRecords) {
-                System.out.println(r);
+            if (allRecords.isEmpty()) {
+                System.out.println("(no records)");
+                return;
             }
+            System.out.printf("| %-6s | %-20s |%n", "ID", "NAME");
+            System.out.println("|--------|----------------------|");
+            for (DBRecord r : allRecords) {
+                System.out.printf("| %-6d | %-20s |%n", r.getId(), r.getName());
+            }
+            System.out.println("(" + allRecords.size() + " record(s))");
         }
     }
 }
