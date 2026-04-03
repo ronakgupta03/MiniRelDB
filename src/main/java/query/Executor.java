@@ -6,9 +6,11 @@ import java.util.List;
 public class Executor {
 
     private HeapFile heapFile;
+    private index.BPlusTree index;
 
     public Executor(HeapFile heapFile) {
         this.heapFile = heapFile;
+        this.index = new index.BPlusTree();
     }
 
     public void executeInsert(InsertQuery query) throws Exception {
@@ -17,11 +19,25 @@ public class Executor {
         DBRecord record = new DBRecord(query.getId(), query.getName());
 
         // Insert into storage
-        heapFile.insertRecord(record);
+        int pageId = heapFile.insertRecord(record);
+
+        // Update index (id -> pageId)
+        index.insert(record.getId(), pageId);
     }
 
     public List<DBRecord> executeSelect(SelectQuery query) throws Exception {
-        // For now, return all records (no WHERE clause yet)
+        if (query.hasIdFilter()) {
+            Integer pageId = index.search(query.getId());
+            if (pageId == null) {
+                return java.util.Collections.emptyList();
+            }
+            DBRecord record = heapFile.getRecordByPageId(pageId);
+            if (record == null) {
+                return java.util.Collections.emptyList();
+            }
+            return java.util.List.of(record);
+        }
+
         return heapFile.getAllRecords();
     }
 

@@ -1,5 +1,20 @@
 package query;
 
 public class SelectQuery {
-    // Placeholder for future implementation of SELECT query handling
+    private Integer id;
+
+    public SelectQuery() {
+    }
+
+    public SelectQuery(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public boolean hasIdFilter() {
+        return id != null;
+    }
 }

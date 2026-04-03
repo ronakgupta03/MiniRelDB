@@ -29,11 +29,12 @@ public class sqlParser {
         // Expected format: INSERT INTO table VALUES (id, 'name')
         // This is simplified; a real parser would handle more variations
         try {
-            String[] parts = query.split("values", 2);
-            if (parts.length < 2) {
+            String lowerQuery = query.toLowerCase();
+            int valuesIndex = lowerQuery.indexOf("values");
+            if (valuesIndex == -1) {
                 throw new IllegalArgumentException("Invalid INSERT syntax");
             }
-            String valuesPart = parts[1].trim();
+            String valuesPart = query.substring(valuesIndex + "values".length()).trim();
             if (!valuesPart.startsWith("(") || !valuesPart.endsWith(")")) {
                 throw new IllegalArgumentException("Invalid VALUES format");
             }
@@ -51,9 +52,25 @@ public class sqlParser {
     }
     
     private SelectQuery parseSelect() {
-        // Expected format: SELECT * FROM table
-        // For now, ignore details and return a basic SelectQuery
-        return new SelectQuery();
+        // Expected format: SELECT * FROM table [WHERE id=1]
+        // For now, support optional WHERE id filter
+        String lower = query.toLowerCase();
+        int where = lower.indexOf("where id=");
+        if (where == -1) {
+            return new SelectQuery();
+        }
+
+        String cond = query.substring(where + "where id=".length()).trim();
+        if (cond.contains(" ")) {
+            cond = cond.substring(0, cond.indexOf(" ")).trim();
+        }
+
+        try {
+            int id = Integer.parseInt(cond);
+            return new SelectQuery(id);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid SELECT WHERE id value: " + cond);
+        }
     }
     
     private UpdateQuery parseUpdate() {

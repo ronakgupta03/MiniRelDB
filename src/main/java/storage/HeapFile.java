@@ -14,7 +14,7 @@ public class HeapFile {
         this.nextPageId = diskManager.getPageCount();
     }
 
-    public void insertRecord(DBRecord record) throws IOException {
+    public int insertRecord(DBRecord record) throws IOException {
 
         // Create a new page for the record
         Page page = new Page(nextPageId);
@@ -30,8 +30,11 @@ public class HeapFile {
 
         System.out.println("Inserted record into page " + nextPageId);
 
+        int writtenPageId = nextPageId;
         // Move to next page
         nextPageId++;
+
+        return writtenPageId;
 
     }
 
@@ -51,6 +54,19 @@ public class HeapFile {
             }
         }
         return records;
+    }
+
+    public DBRecord getRecordByPageId(int pageId) throws IOException {
+        Page page = diskManager.readPage(pageId);
+        byte[] data = page.getData();
+        if (data.length == 0 || isPageEmpty(data)) {
+            return null;
+        }
+        DBRecord record = DBRecord.fromBytes(data);
+        if (record.isDeleted()) {
+            return null;
+        }
+        return record;
     }
 
     public void deleteRecord(int id) throws IOException {
