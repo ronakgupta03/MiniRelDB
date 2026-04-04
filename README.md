@@ -57,17 +57,10 @@ MiniRelDB/
 
 ## ▶️ How To Run
 
-### Compile
-
-```
-javac -cp ".:sqlite-jdbc.jar:slf4j-api.jar:slf4j-simple.jar" Main.java
-```
-
 ### Run
 
 ```
-java --enable-native-access=ALL-UNNAMED \
--cp ".:sqlite-jdbc.jar:slf4j-api.jar:slf4j-simple.jar" Main
+./compile.sh
 ```
 
 ---
