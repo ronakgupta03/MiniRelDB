@@ -10,23 +10,10 @@ public class HeapFile {
 
     public HeapFile(DiskManager diskManager) throws IOException {
         this.diskManager = diskManager;
-
-        int totalPages = diskManager.getTotalPages();
-
-        if (totalPages == 0) {
-            // Fresh DB
-            this.nextPageId = 0;
-            this.currentPage = new Page(0);
-        } else {
-            // Existing DB
-            this.nextPageId = totalPages - 1;
-
-            // Load last page from disk
-            this.currentPage = diskManager.readPage(nextPageId);
-        }
+        this.nextPageId = diskManager.getPageCount();
     }
 
-    public void insertRecord(DBRecord record) throws IOException {
+    public int insertRecord(DBRecord record) throws IOException {
 
         byte[] recordBytes = record.toBytes();
 
@@ -41,11 +28,76 @@ public class HeapFile {
             nextPageId++;
             currentPage = new Page(nextPageId);
 
-            // Insert into new page
-            currentPage.insertRecord(recordBytes);
-        }
+        int writtenPageId = nextPageId;
+        // Move to next page
+        nextPageId++;
 
-        System.out.println("Inserted record into page " + currentPage.getPageId());
+        return writtenPageId;
+
+    }
+
+    public java.util.List<DBRecord> getAllRecords() throws IOException {
+        java.util.List<DBRecord> records = new java.util.ArrayList<>();
+        int pageCount = diskManager.getPageCount();
+
+        for (int i = 0; i < pageCount; i++) {
+            Page page = diskManager.readPage(i);
+            byte[] data = page.getData();
+            if (data.length == 0 || isPageEmpty(data)) {
+                continue;
+            }
+            DBRecord record = DBRecord.fromBytes(data);
+            if (!record.isDeleted()) {
+                records.add(record);
+            }
+        }
+        return records;
+    }
+
+    public DBRecord getRecordByPageId(int pageId) throws IOException {
+        Page page = diskManager.readPage(pageId);
+        byte[] data = page.getData();
+        if (data.length == 0 || isPageEmpty(data)) {
+            return null;
+        }
+        DBRecord record = DBRecord.fromBytes(data);
+        if (record.isDeleted()) {
+            return null;
+        }
+        return record;
+    }
+
+    public void deleteRecord(int id) throws IOException {
+        int pageCount = diskManager.getPageCount();
+        for (int i = 0; i < pageCount; i++) {
+            Page page = diskManager.readPage(i);
+            byte[] data = page.getData();
+            if (data.length == 0 || isPageEmpty(data)) {
+                continue;
+            }
+            DBRecord record = DBRecord.fromBytes(data);
+            if (record.getId() == id && !record.isDeleted()) {
+                // Mark record as deleted and write back to disk
+                record.setDeleted(true);
+                byte[] updatedBytes = record.toBytes();
+                byte[] pageData = page.getData();
+                System.arraycopy(updatedBytes, 0, pageData, 0, updatedBytes.length);
+                page.setData(pageData);
+                diskManager.writePage(page);
+                System.out.println("Deleted record with ID " + id);
+                return;
+            }
+        }
+        System.out.println("Record with ID " + id + " not found.");
+    }
+
+    private boolean isPageEmpty(byte[] data) {
+        for (byte b : data) {
+            if (b != 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void flush() throws IOException {
