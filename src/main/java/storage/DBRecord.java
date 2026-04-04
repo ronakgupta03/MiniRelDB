@@ -42,23 +42,35 @@ public class DBRecord {
         return buffer.array();
     }
 
-    // 🔹 Deserialization (Converting bytes -> object)
-    public static DBRecord fromBytes(byte[] data) {
+    public int getId() {
+        return id;
+    }
 
-        ByteBuffer buffer = ByteBuffer.wrap(data);  // Wrap byte array for reading
+    public String getName() {
+        return name;
+    }
+
+    public int size() {
+        return 4 + 4 + name.getBytes(StandardCharsets.UTF_8).length;
+    }
+
+    // // 🔹 Deserialization (Converting bytes -> object)
+    // public static DBRecord fromBytes(byte[] data) {
+
+    //     ByteBuffer buffer = ByteBuffer.wrap(data);  // Wrap byte array for reading
  
         boolean deleted = buffer.get() == 1; // Reads first byte → deleted flag
         int id = buffer.getInt(); // Reads next 4 bytes → converts to int
 
-        int nameLength = buffer.getInt(); // Reads next 4 bytes → string length
+    //     int nameLength = buffer.getInt(); // Reads next 4 bytes → string length
 
 
-        // Reads actual string
-        byte[] nameBytes = new byte[nameLength];
-        buffer.get(nameBytes);
+    //     // Reads actual string
+    //     byte[] nameBytes = new byte[nameLength];
+    //     buffer.get(nameBytes);
     
 
-        String name = new String(nameBytes, StandardCharsets.UTF_8);  // 
+    //     String name = new String(nameBytes, StandardCharsets.UTF_8);  // 
 
         return new DBRecord(id, name, deleted); // Rebuild object
     }
