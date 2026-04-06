@@ -26,8 +26,7 @@ public class sqlParser {
     }
     
     private InsertQuery parseInsert() {
-        // Expected format: INSERT INTO table VALUES (id, 'name')
-        // This is simplified; a real parser would handle more variations
+        // Expected format: INSERT INTO table VALUES (id, 'name') or VALUES (id, "name")
         try {
             String lowerQuery = query.toLowerCase();
             int valuesIndex = lowerQuery.indexOf("values");
@@ -35,16 +34,31 @@ public class sqlParser {
                 throw new IllegalArgumentException("Invalid INSERT syntax");
             }
             String valuesPart = query.substring(valuesIndex + "values".length()).trim();
+            // Allow optional trailing semicolon
+            valuesPart = valuesPart.replaceAll(";+$", "").trim();
             if (!valuesPart.startsWith("(") || !valuesPart.endsWith(")")) {
                 throw new IllegalArgumentException("Invalid VALUES format");
             }
             valuesPart = valuesPart.substring(1, valuesPart.length() - 1); // Remove parentheses
-            String[] values = valuesPart.split(",");
-            if (values.length != 2) {
+            
+            // Parse id and name, handling quoted strings properly
+            String[] parts = new String[2];
+            int commaIndex = valuesPart.indexOf(',');
+            if (commaIndex == -1) {
                 throw new IllegalArgumentException("Expected 2 values: id and name");
             }
-            int id = Integer.parseInt(values[0].trim());
-            String name = values[1].trim().replaceAll("^['\"]|['\"]$", ""); // Remove single or double quotes
+            
+            parts[0] = valuesPart.substring(0, commaIndex).trim();
+            parts[1] = valuesPart.substring(commaIndex + 1).trim();
+            
+            int id = Integer.parseInt(parts[0]);
+            
+            // Extract name, removing surrounding quotes
+            String name = parts[1];
+            if ((name.startsWith("'") && name.endsWith("'")) || (name.startsWith("\"") && name.endsWith("\""))) {
+                name = name.substring(1, name.length() - 1);
+            }
+            
             return new InsertQuery(id, name);
         } catch (Exception e) {
             throw new IllegalArgumentException("Error parsing INSERT query: " + e.getMessage());
@@ -61,6 +75,8 @@ public class sqlParser {
         }
 
         String cond = query.substring(where + "where id=".length()).trim();
+        // Remove trailing semicolon if present
+        cond = cond.replaceAll(";+$", "").trim();
         if (cond.contains(" ")) {
             cond = cond.substring(0, cond.indexOf(" ")).trim();
         }
@@ -74,20 +90,47 @@ public class sqlParser {
     }
     
     private UpdateQuery parseUpdate() {
-        // Expected format: UPDATE table SET name='newname' WHERE id=1
+        // Expected format: UPDATE table SET name='newname' WHERE id=1 or SET name="newname"
         try {
             // Simple parsing: find id and newname
             int idIndex = query.toLowerCase().indexOf("where id=");
             if (idIndex == -1) throw new IllegalArgumentException("Missing WHERE id=");
             String idStr = query.substring(idIndex + 9).trim();
+            // Remove trailing semicolon if present
+            idStr = idStr.replaceAll(";+$", "").trim();
+            if (idStr.contains(" ")) {
+                idStr = idStr.substring(0, idStr.indexOf(" ")).trim();
+            }
             int id = Integer.parseInt(idStr);
             
             int setIndex = query.toLowerCase().indexOf("set name=");
             if (setIndex == -1) throw new IllegalArgumentException("Missing SET name=");
-            String namePart = query.substring(setIndex + 9);
-            int quoteEnd = namePart.indexOf("'");
-            if (quoteEnd == -1) quoteEnd = namePart.indexOf(" ");
-            String newName = namePart.substring(1, quoteEnd).replaceAll("^'|'$", "");
+            String namePart = query.substring(setIndex + 9).trim();
+            
+            // Find the closing quote (either single or double)
+            int quoteEnd = -1;
+            char quoteChar = ' ';
+            if (namePart.length() > 0) {
+                quoteChar = namePart.charAt(0);
+                if (quoteChar == '\'' || quoteChar == '"') {
+                    quoteEnd = namePart.indexOf(quoteChar, 1);
+                    if (quoteEnd == -1) {
+                        throw new IllegalArgumentException("Unterminated string in SET name");
+                    }
+                } else {
+                    quoteEnd = namePart.indexOf(" ");
+                    if (quoteEnd == -1) {
+                        quoteEnd = namePart.length();
+                    }
+                }
+            }
+            
+            String newName;
+            if (quoteChar == '\'' || quoteChar == '"') {
+                newName = namePart.substring(1, quoteEnd);
+            } else {
+                newName = namePart.substring(0, quoteEnd);
+            }
             
             return new UpdateQuery(id, newName);
         } catch (Exception e) {
@@ -101,6 +144,11 @@ public class sqlParser {
             int idIndex = query.toLowerCase().indexOf("where id=");
             if (idIndex == -1) throw new IllegalArgumentException("Missing WHERE id=");
             String idStr = query.substring(idIndex + 9).trim();
+            // Remove trailing semicolon if present
+            idStr = idStr.replaceAll(";+$", "").trim();
+            if (idStr.contains(" ")) {
+                idStr = idStr.substring(0, idStr.indexOf(" ")).trim();
+            }
             int id = Integer.parseInt(idStr);
             return new DeleteQuery(id);
         } catch (Exception e) {
