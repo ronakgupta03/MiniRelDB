@@ -1,50 +1,96 @@
-import java.util.List;
-import java.util.Scanner;
+package database;
 
-import query.CommandParser;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 import query.*;
 import storage.*;
-import query.*;
-import java.util.Scanner;
-import java.util.List;
-
+import catalog.CatalogManager;
 
 public class Main {
-
     public static void main(String[] args) {
-
         try {
-            DiskManager dm = new DiskManager("data/database.db");
-            HeapFile heapFile = new HeapFile(dm);
-
-            Executor executor = new Executor(heapFile);
-
-            Scanner sc = new Scanner(System.in);
-            String exit = "";
+            CatalogManager catalogManager = new CatalogManager();
+            String currentDatabase = "main";
+            if (catalogManager.getDatabases().isEmpty()) {
+                catalogManager.createDatabase("main");
+            }
             
-            while(!exit.equals("exit")){
-
-                System.out.print("Enter query: ");
-                String query = sc.nextLine().trim();
-                query = query.toLowerCase();
-                if (query.equals("exit")) {
-                    exit = query;
+            Executor executor = new Executor(currentDatabase, catalogManager);
+            Scanner sc = new Scanner(System.in);
+            
+            System.out.println("MiniRelDB Console - Connected to '" + currentDatabase + "'");
+            while (true) {
+                System.out.print("[" + currentDatabase + "]> ");
+                String queryStr = sc.nextLine().trim();
+                if (queryStr.equalsIgnoreCase("exit")) {
+                    executor.flushAll();
                     System.out.println("Exiting...");
+                    break;
+                }
+                if (queryStr.equalsIgnoreCase("clear")) {
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
                     continue;
                 }
-                
+                if (queryStr.isEmpty()) continue;
+
                 try {
-                    sqlParser parser = new sqlParser(query);
+                    sqlParser parser = new sqlParser(queryStr);
                     Object parsedQuery = parser.parse();
-                    
-                    if (parsedQuery instanceof InsertQuery) {
+
+                    if (parsedQuery instanceof UseDatabaseQuery) {
+                        String newDb = ((UseDatabaseQuery) parsedQuery).getDbName();
+                        if (catalogManager.getDatabaseSchema(newDb) == null) {
+                            System.out.println("Error: Database '" + newDb + "' does not exist.");
+                        } else {
+                            executor.flushAll();
+                            currentDatabase = newDb;
+                            executor = new Executor(currentDatabase, catalogManager);
+                            System.out.println("Switched to database '" + currentDatabase + "'");
+                        }
+                    } else if (parsedQuery instanceof CreateDatabaseQuery) {
+                        catalogManager.createDatabase(((CreateDatabaseQuery) parsedQuery).getDbName());
+                        System.out.println("Database created.");
+                    } else if (parsedQuery instanceof CreateTableQuery) {
+                        executor.executeCreateTable((CreateTableQuery) parsedQuery);
+                        System.out.println("Table created.");
+                    } else if (parsedQuery instanceof AlterTableQuery) {
+                        executor.executeAlterTable((AlterTableQuery) parsedQuery);
+                        System.out.println("Table altered.");
+                    } else if (parsedQuery instanceof CreateIndexQuery) {
+                        executor.executeCreateIndex((CreateIndexQuery) parsedQuery);
+                        System.out.println("Index created.");
+                    } else if (parsedQuery instanceof ShowQuery) {
+                        List<String> results = executor.executeShow((ShowQuery) parsedQuery);
+                        System.out.println(((ShowQuery) parsedQuery).getType() + ":");
+                        for (String s : results) System.out.println(" - " + s);
+                    } else if (parsedQuery instanceof DropQuery) {
+                        try {
+                            executor.executeDrop((DropQuery) parsedQuery);
+                            System.out.println("Dropped " + ((DropQuery) parsedQuery).getType().toLowerCase());
+                        } catch (Exception e) {
+                            System.out.println("Drop skipped (object might not exist).");
+                        }
+                    } else if (parsedQuery instanceof InsertQuery) {
                         executor.executeInsert((InsertQuery) parsedQuery);
                         System.out.println("Insert executed.");
+                    } else if (parsedQuery instanceof MultiInsertQuery) {
+                        MultiInsertQuery mq = (MultiInsertQuery) parsedQuery;
+                        for (Map<String, Object> row : mq.getRows()) {
+                            executor.executeInsert(new InsertQuery(mq.getTableName(), row));
+                        }
+                        System.out.println("Bulk insert executed (" + mq.getRows().size() + " rows).");
                     } else if (parsedQuery instanceof SelectQuery) {
                         List<DBRecord> results = executor.executeSelect((SelectQuery) parsedQuery);
                         System.out.println("Select results:");
-                        for (DBRecord record : results) {
-                            System.out.println("ID: " + record.getId() + ", Name: " + record.getName());
+                        for (DBRecord r : results) {
+                            System.out.print(" - ");
+                            Map<String, Object> vals = r.getValues();
+                            for (Map.Entry<String, Object> entry : vals.entrySet()) {
+                                System.out.print(entry.getKey() + ": " + entry.getValue() + " | ");
+                            }
+                            System.out.println();
                         }
                     } else if (parsedQuery instanceof UpdateQuery) {
                         executor.executeUpdate((UpdateQuery) parsedQuery);

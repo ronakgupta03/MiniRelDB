@@ -1,2 +1,2 @@
 javac -d out src/main/java/**/*.java
-java -cp out Main
+java -cp out database.Main

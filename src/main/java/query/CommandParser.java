@@ -17,7 +17,7 @@ public class CommandParser {
             int id = Integer.parseInt(parts[1]);
             String name = parts[2];
 
-            return new InsertQuery(id, name);
+            return new InsertQuery(null, id, name);
         }
 
         // SELECT
