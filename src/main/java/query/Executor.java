@@ -435,7 +435,18 @@ public class Executor {
                 }
             }
         }
-        return filterColumns(new ArrayList<>(unified.values()), query.getColumns());
+        List<DBRecord> allResults = new ArrayList<>(unified.values());
+        if (query.getFilterColumn() != null) {
+            List<DBRecord> filtered = new ArrayList<>();
+            for (DBRecord r : allResults) {
+                Object actualVal = r.getValue(query.getFilterColumn());
+                if (actualVal != null && actualVal.toString().equals(query.getFilterValue().toString())) {
+                    filtered.add(r);
+                }
+            }
+            allResults = filtered;
+        }
+        return filterColumns(allResults, query.getColumns());
     }
 
     public void executeUpdate(UpdateQuery query) throws Exception {

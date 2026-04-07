@@ -267,21 +267,25 @@ public class sqlParser {
                     }
                 } else {
                     int eqIdx = lowerWhere.indexOf("=");
-                    if (eqIdx != -1 && lowerWhere.substring(0, eqIdx).contains("id")) {
-                        String valPart = whereClause.substring(eqIdx + 1).trim().replace(";", "");
-                        StringBuilder sb = new StringBuilder();
-                        for (char c : valPart.toCharArray()) {
-                            if (Character.isDigit(c)) sb.append(c); else break;
-                        }
-                        try {
-                            int id = Integer.parseInt(sb.toString());
-                            sq = new SelectQuery(id);
-                            sq.setBaseTable(sq.getBaseTable()); // Preserve
-                            if (!colPart.equals("*")) {
-                                List<String> cols = smartSplit(colPart, ',');
-                                for (String c : cols) sq.addColumn(c.trim());
+                    if (eqIdx != -1) {
+                        String filterCol = whereClause.substring(0, eqIdx).trim();
+                        String filterVal = whereClause.substring(eqIdx + 1).trim().replace(";", "").replaceAll("^['\"]|['\"]$", "");
+                        
+                        if (filterCol.toLowerCase().contains("id")) {
+                            try {
+                                int id = Integer.parseInt(filterVal);
+                                sq = new SelectQuery(id);
+                                sq.setBaseTable(query.substring(fromIdx + 4, whereIdx).trim());
+                                if (!colPart.equals("*")) {
+                                    List<String> cols = smartSplit(colPart, ',');
+                                    for (String c : cols) sq.addColumn(c.trim());
+                                }
+                            } catch (NumberFormatException e) {
+                                sq.setFilter(filterCol, filterVal);
                             }
-                        } catch (NumberFormatException e) {}
+                        } else {
+                            sq.setFilter(filterCol, filterVal);
+                        }
                     }
                 }
             }
