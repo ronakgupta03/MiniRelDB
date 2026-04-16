@@ -1,0 +1,585 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2200" height="1700" viewBox="0 0 2200 1700">
+  <defs>
+    <linearGradient id="entityGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2a3f5f;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#1a2a3f;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="relGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3d5a80;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#2d4a70;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="weakGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3a3550;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#2a2540;stop-opacity:1"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#5a8fa8"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="2200" height="1700" fill="#0d1520"/>
+  <g id="grid" opacity="0.1">
+    <line x1="0" y1="0" x2="0" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="50" y1="0" x2="50" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="100" y1="0" x2="100" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="150" y1="0" x2="150" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="200" y1="0" x2="200" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="250" y1="0" x2="250" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="300" y1="0" x2="300" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="350" y1="0" x2="350" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="400" y1="0" x2="400" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="450" y1="0" x2="450" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="500" y1="0" x2="500" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="550" y1="0" x2="550" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="600" y1="0" x2="600" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="650" y1="0" x2="650" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="700" y1="0" x2="700" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="750" y1="0" x2="750" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="800" y1="0" x2="800" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="850" y1="0" x2="850" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="900" y1="0" x2="900" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="950" y1="0" x2="950" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="1000" y1="0" x2="1000" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="1050" y1="0" x2="1050" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="1100" y1="0" x2="1100" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="1150" y1="0" x2="1150" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="1200" y1="0" x2="1200" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="1250" y1="0" x2="1250" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="1300" y1="0" x2="1300" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="1350" y1="0" x2="1350" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="1400" y1="0" x2="1400" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="1450" y1="0" x2="1450" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="1500" y1="0" x2="1500" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="1550" y1="0" x2="1550" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="1600" y1="0" x2="1600" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="1650" y1="0" x2="1650" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="1700" y1="0" x2="1700" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="1750" y1="0" x2="1750" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="1800" y1="0" x2="1800" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="1850" y1="0" x2="1850" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="1900" y1="0" x2="1900" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="1950" y1="0" x2="1950" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="2000" y1="0" x2="2000" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="2050" y1="0" x2="2050" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="2100" y1="0" x2="2100" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="2150" y1="0" x2="2150" y2="1700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="0" x2="2200" y2="0" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="50" x2="2200" y2="50" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="100" x2="2200" y2="100" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="150" x2="2200" y2="150" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="200" x2="2200" y2="200" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="250" x2="2200" y2="250" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="300" x2="2200" y2="300" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="350" x2="2200" y2="350" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="400" x2="2200" y2="400" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="450" x2="2200" y2="450" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="500" x2="2200" y2="500" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="550" x2="2200" y2="550" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="600" x2="2200" y2="600" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="650" x2="2200" y2="650" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="700" x2="2200" y2="700" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="750" x2="2200" y2="750" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="800" x2="2200" y2="800" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="850" x2="2200" y2="850" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="900" x2="2200" y2="900" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="950" x2="2200" y2="950" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="1000" x2="2200" y2="1000" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="1050" x2="2200" y2="1050" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="1100" x2="2200" y2="1100" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="1150" x2="2200" y2="1150" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="1200" x2="2200" y2="1200" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="1250" x2="2200" y2="1250" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="1300" x2="2200" y2="1300" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="1350" x2="2200" y2="1350" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="1400" x2="2200" y2="1400" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="1450" x2="2200" y2="1450" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="1500" x2="2200" y2="1500" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="1550" x2="2200" y2="1550" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="1600" x2="2200" y2="1600" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="0" y1="1650" x2="2200" y2="1650" stroke="#4a6fa5" stroke-width="1"/>
+  </g>
+  <text x="1100" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#7eb8da">TuxPages Database - Entity Relationship Diagram</text>
+  <text x="1100" y="65" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#5a8fa8">Chen Notation Style</text>
+  <g id="entity_USERS">
+    <rect x="203" y="183" width="184" height="305" rx="8" ry="8" fill="rgba(0,0,0,0.3)"/>
+    <rect x="200" y="180" width="184" height="305" rx="8" ry="8" fill="url(#entityGrad)" stroke="#4a7fa8" stroke-width="2"/>
+    <rect x="200" y="180" width="184" height="30" rx="8" ry="8" fill="#3a6090"/>
+    <rect x="200" y="200" width="184" height="10" fill="#3a6090"/>
+    <text x="292" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">USERS</text>
+    <text x="212" y="218" font-family="Monospace, monospace" font-size="11" fill="#e8b86d">user_id</text>
+    <circle cx="206" cy="214" r="4" fill="#e8b86d"/>
+    <line x1="212" y1="222" x2="254" y2="222" stroke="#e8b86d" stroke-width="1"/>
+    <text x="212" y="236" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">email</text>
+    <text x="212" y="254" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">username</text>
+    <text x="212" y="272" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">password_hash</text>
+    <text x="212" y="290" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">name</text>
+    <text x="212" y="308" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">college</text>
+    <text x="212" y="326" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">branch</text>
+    <text x="212" y="344" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">city</text>
+    <text x="212" y="362" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">country</text>
+    <text x="212" y="380" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">profile_photo</text>
+    <text x="212" y="398" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">is_verified</text>
+    <text x="212" y="416" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">is_admin</text>
+    <text x="212" y="434" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">token_version</text>
+    <text x="212" y="452" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">created_at</text>
+    <text x="212" y="470" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">updated_at</text>
+  </g>
+  <g id="entity_CATEGORIES">
+    <rect x="1203" y="183" width="184" height="143" rx="8" ry="8" fill="rgba(0,0,0,0.3)"/>
+    <rect x="1200" y="180" width="184" height="143" rx="8" ry="8" fill="url(#entityGrad)" stroke="#4a7fa8" stroke-width="2"/>
+    <rect x="1200" y="180" width="184" height="30" rx="8" ry="8" fill="#3a6090"/>
+    <rect x="1200" y="200" width="184" height="10" fill="#3a6090"/>
+    <text x="1292" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">CATEGORIES</text>
+    <text x="1212" y="218" font-family="Monospace, monospace" font-size="11" fill="#e8b86d">category_id</text>
+    <circle cx="1206" cy="214" r="4" fill="#e8b86d"/>
+    <line x1="1212" y1="222" x2="1278" y2="222" stroke="#e8b86d" stroke-width="1"/>
+    <text x="1212" y="236" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">name</text>
+    <text x="1212" y="254" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">slug</text>
+    <text x="1212" y="272" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">description</text>
+    <text x="1212" y="290" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">parent_id</text>
+    <text x="1212" y="308" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">display_order</text>
+  </g>
+  <g id="entity_TAGS">
+    <rect x="1603" y="183" width="168" height="107" rx="8" ry="8" fill="rgba(0,0,0,0.3)"/>
+    <rect x="1600" y="180" width="168" height="107" rx="8" ry="8" fill="url(#entityGrad)" stroke="#4a7fa8" stroke-width="2"/>
+    <rect x="1600" y="180" width="168" height="30" rx="8" ry="8" fill="#3a6090"/>
+    <rect x="1600" y="200" width="168" height="10" fill="#3a6090"/>
+    <text x="1684" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">TAGS</text>
+    <text x="1612" y="218" font-family="Monospace, monospace" font-size="11" fill="#e8b86d">tag_id</text>
+    <circle cx="1606" cy="214" r="4" fill="#e8b86d"/>
+    <line x1="1612" y1="222" x2="1648" y2="222" stroke="#e8b86d" stroke-width="1"/>
+    <text x="1612" y="236" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">name</text>
+    <text x="1612" y="254" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">slug</text>
+    <text x="1612" y="272" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">description</text>
+  </g>
+  <g id="entity_POSTS">
+    <rect x="703" y="183" width="176" height="251" rx="8" ry="8" fill="rgba(0,0,0,0.3)"/>
+    <rect x="700" y="180" width="176" height="251" rx="8" ry="8" fill="url(#entityGrad)" stroke="#4a7fa8" stroke-width="2"/>
+    <rect x="700" y="180" width="176" height="30" rx="8" ry="8" fill="#3a6090"/>
+    <rect x="700" y="200" width="176" height="10" fill="#3a6090"/>
+    <text x="788" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">POSTS</text>
+    <text x="712" y="218" font-family="Monospace, monospace" font-size="11" fill="#e8b86d">post_id</text>
+    <circle cx="706" cy="214" r="4" fill="#e8b86d"/>
+    <line x1="712" y1="222" x2="754" y2="222" stroke="#e8b86d" stroke-width="1"/>
+    <text x="712" y="236" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">author_id</text>
+    <text x="712" y="254" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">title</text>
+    <text x="712" y="272" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">slug</text>
+    <text x="712" y="290" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">content</text>
+    <text x="712" y="308" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">excerpt</text>
+    <text x="712" y="326" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">status</text>
+    <text x="712" y="344" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">visibility</text>
+    <text x="712" y="362" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">published_at</text>
+    <text x="712" y="380" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">created_at</text>
+    <text x="712" y="398" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">updated_at</text>
+    <text x="712" y="416" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">view_count</text>
+  </g>
+  <g id="entity_POST_CATEGORIES">
+    <rect x="1003" y="1403" width="168" height="89" rx="8" ry="8" fill="rgba(0,0,0,0.3)"/>
+    <rect x="1000" y="1400" width="168" height="89" rx="8" ry="8" fill="url(#weakGrad)" stroke="#6a5a80" stroke-width="2"/>
+    <rect x="998" y="1398" width="172" height="93" rx="10" ry="10" fill="none" stroke="#6a5a80" stroke-width="1"/>
+    <rect x="1000" y="1400" width="168" height="30" rx="8" ry="8" fill="#3a6090"/>
+    <rect x="1000" y="1420" width="168" height="10" fill="#3a6090"/>
+    <text x="1084" y="1420" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">POST_CATEGORIES</text>
+    <text x="1012" y="1438" font-family="Monospace, monospace" font-size="11" fill="#e8b86d">id</text>
+    <circle cx="1006" cy="1434" r="4" fill="#e8b86d"/>
+    <line x1="1012" y1="1442" x2="1024" y2="1442" stroke="#e8b86d" stroke-width="1"/>
+    <text x="1012" y="1456" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">post_id</text>
+    <text x="1012" y="1474" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">category_id</text>
+  </g>
+  <g id="entity_POST_TAGS">
+    <rect x="1303" y="1403" width="160" height="89" rx="8" ry="8" fill="rgba(0,0,0,0.3)"/>
+    <rect x="1300" y="1400" width="160" height="89" rx="8" ry="8" fill="url(#weakGrad)" stroke="#6a5a80" stroke-width="2"/>
+    <rect x="1298" y="1398" width="164" height="93" rx="10" ry="10" fill="none" stroke="#6a5a80" stroke-width="1"/>
+    <rect x="1300" y="1400" width="160" height="30" rx="8" ry="8" fill="#3a6090"/>
+    <rect x="1300" y="1420" width="160" height="10" fill="#3a6090"/>
+    <text x="1380" y="1420" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">POST_TAGS</text>
+    <text x="1312" y="1438" font-family="Monospace, monospace" font-size="11" fill="#e8b86d">id</text>
+    <circle cx="1306" cy="1434" r="4" fill="#e8b86d"/>
+    <line x1="1312" y1="1442" x2="1324" y2="1442" stroke="#e8b86d" stroke-width="1"/>
+    <text x="1312" y="1456" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">post_id</text>
+    <text x="1312" y="1474" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">tag_id</text>
+  </g>
+  <g id="entity_COMMENTS">
+    <rect x="703" y="653" width="160" height="197" rx="8" ry="8" fill="rgba(0,0,0,0.3)"/>
+    <rect x="700" y="650" width="160" height="197" rx="8" ry="8" fill="url(#entityGrad)" stroke="#4a7fa8" stroke-width="2"/>
+    <rect x="700" y="650" width="160" height="30" rx="8" ry="8" fill="#3a6090"/>
+    <rect x="700" y="670" width="160" height="10" fill="#3a6090"/>
+    <text x="780" y="670" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">COMMENTS</text>
+    <text x="712" y="688" font-family="Monospace, monospace" font-size="11" fill="#e8b86d">comment_id</text>
+    <circle cx="706" cy="684" r="4" fill="#e8b86d"/>
+    <line x1="712" y1="692" x2="772" y2="692" stroke="#e8b86d" stroke-width="1"/>
+    <text x="712" y="706" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">post_id</text>
+    <text x="712" y="724" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">user_id</text>
+    <text x="712" y="742" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">parent_id</text>
+    <text x="712" y="760" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">content</text>
+    <text x="712" y="778" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">upvotes</text>
+    <text x="712" y="796" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">downvotes</text>
+    <text x="712" y="814" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">created_at</text>
+    <text x="712" y="832" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">updated_at</text>
+  </g>
+  <g id="entity_MEDIA">
+    <rect x="1203" y="653" width="168" height="269" rx="8" ry="8" fill="rgba(0,0,0,0.3)"/>
+    <rect x="1200" y="650" width="168" height="269" rx="8" ry="8" fill="url(#entityGrad)" stroke="#4a7fa8" stroke-width="2"/>
+    <rect x="1200" y="650" width="168" height="30" rx="8" ry="8" fill="#3a6090"/>
+    <rect x="1200" y="670" width="168" height="10" fill="#3a6090"/>
+    <text x="1284" y="670" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">MEDIA</text>
+    <text x="1212" y="688" font-family="Monospace, monospace" font-size="11" fill="#e8b86d">media_id</text>
+    <circle cx="1206" cy="684" r="4" fill="#e8b86d"/>
+    <line x1="1212" y1="692" x2="1260" y2="692" stroke="#e8b86d" stroke-width="1"/>
+    <text x="1212" y="706" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">post_id</text>
+    <text x="1212" y="724" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">uploader_id</text>
+    <text x="1212" y="742" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">filename</text>
+    <text x="1212" y="760" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">file_type</text>
+    <text x="1212" y="778" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">file_size</text>
+    <text x="1212" y="796" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">url</text>
+    <text x="1212" y="814" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">thumb_url</text>
+    <text x="1212" y="832" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">width</text>
+    <text x="1212" y="850" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">height</text>
+    <text x="1212" y="868" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">alt_text</text>
+    <text x="1212" y="886" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">caption</text>
+    <text x="1212" y="904" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">uploaded_at</text>
+  </g>
+  <g id="entity_PAGES">
+    <rect x="1603" y="653" width="160" height="215" rx="8" ry="8" fill="rgba(0,0,0,0.3)"/>
+    <rect x="1600" y="650" width="160" height="215" rx="8" ry="8" fill="url(#entityGrad)" stroke="#4a7fa8" stroke-width="2"/>
+    <rect x="1600" y="650" width="160" height="30" rx="8" ry="8" fill="#3a6090"/>
+    <rect x="1600" y="670" width="160" height="10" fill="#3a6090"/>
+    <text x="1680" y="670" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">PAGES</text>
+    <text x="1612" y="688" font-family="Monospace, monospace" font-size="11" fill="#e8b86d">page_id</text>
+    <circle cx="1606" cy="684" r="4" fill="#e8b86d"/>
+    <line x1="1612" y1="692" x2="1654" y2="692" stroke="#e8b86d" stroke-width="1"/>
+    <text x="1612" y="706" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">title</text>
+    <text x="1612" y="724" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">slug</text>
+    <text x="1612" y="742" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">content</text>
+    <text x="1612" y="760" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">template</text>
+    <text x="1612" y="778" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">meta_title</text>
+    <text x="1612" y="796" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">meta_desc</text>
+    <text x="1612" y="814" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">status</text>
+    <text x="1612" y="832" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">created_at</text>
+    <text x="1612" y="850" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">updated_at</text>
+  </g>
+  <g id="entity_LIKES">
+    <rect x="203" y="903" width="160" height="107" rx="8" ry="8" fill="rgba(0,0,0,0.3)"/>
+    <rect x="200" y="900" width="160" height="107" rx="8" ry="8" fill="url(#entityGrad)" stroke="#4a7fa8" stroke-width="2"/>
+    <rect x="200" y="900" width="160" height="30" rx="8" ry="8" fill="#3a6090"/>
+    <rect x="200" y="920" width="160" height="10" fill="#3a6090"/>
+    <text x="280" y="920" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">LIKES</text>
+    <text x="212" y="938" font-family="Monospace, monospace" font-size="11" fill="#e8b86d">like_id</text>
+    <circle cx="206" cy="934" r="4" fill="#e8b86d"/>
+    <line x1="212" y1="942" x2="254" y2="942" stroke="#e8b86d" stroke-width="1"/>
+    <text x="212" y="956" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">user_id</text>
+    <text x="212" y="974" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">post_id</text>
+    <text x="212" y="992" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">liked_at</text>
+  </g>
+  <g id="entity_SHARES">
+    <rect x="503" y="903" width="160" height="125" rx="8" ry="8" fill="rgba(0,0,0,0.3)"/>
+    <rect x="500" y="900" width="160" height="125" rx="8" ry="8" fill="url(#entityGrad)" stroke="#4a7fa8" stroke-width="2"/>
+    <rect x="500" y="900" width="160" height="30" rx="8" ry="8" fill="#3a6090"/>
+    <rect x="500" y="920" width="160" height="10" fill="#3a6090"/>
+    <text x="580" y="920" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">SHARES</text>
+    <text x="512" y="938" font-family="Monospace, monospace" font-size="11" fill="#e8b86d">share_id</text>
+    <circle cx="506" cy="934" r="4" fill="#e8b86d"/>
+    <line x1="512" y1="942" x2="560" y2="942" stroke="#e8b86d" stroke-width="1"/>
+    <text x="512" y="956" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">user_id</text>
+    <text x="512" y="974" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">post_id</text>
+    <text x="512" y="992" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">platform</text>
+    <text x="512" y="1010" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">shared_at</text>
+  </g>
+  <g id="entity_FOLLOWERS">
+    <rect x="803" y="903" width="176" height="107" rx="8" ry="8" fill="rgba(0,0,0,0.3)"/>
+    <rect x="800" y="900" width="176" height="107" rx="8" ry="8" fill="url(#entityGrad)" stroke="#4a7fa8" stroke-width="2"/>
+    <rect x="800" y="900" width="176" height="30" rx="8" ry="8" fill="#3a6090"/>
+    <rect x="800" y="920" width="176" height="10" fill="#3a6090"/>
+    <text x="888" y="920" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">FOLLOWERS</text>
+    <text x="812" y="938" font-family="Monospace, monospace" font-size="11" fill="#e8b86d">id</text>
+    <circle cx="806" cy="934" r="4" fill="#e8b86d"/>
+    <line x1="812" y1="942" x2="824" y2="942" stroke="#e8b86d" stroke-width="1"/>
+    <text x="812" y="956" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">follower_id</text>
+    <text x="812" y="974" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">following_id</text>
+    <text x="812" y="992" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">followed_at</text>
+  </g>
+  <g id="entity_SUBSCRIPTIONS">
+    <rect x="1103" y="903" width="160" height="161" rx="8" ry="8" fill="rgba(0,0,0,0.3)"/>
+    <rect x="1100" y="900" width="160" height="161" rx="8" ry="8" fill="url(#entityGrad)" stroke="#4a7fa8" stroke-width="2"/>
+    <rect x="1100" y="900" width="160" height="30" rx="8" ry="8" fill="#3a6090"/>
+    <rect x="1100" y="920" width="160" height="10" fill="#3a6090"/>
+    <text x="1180" y="920" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">SUBSCRIPTIONS</text>
+    <text x="1112" y="938" font-family="Monospace, monospace" font-size="11" fill="#e8b86d">sub_id</text>
+    <circle cx="1106" cy="934" r="4" fill="#e8b86d"/>
+    <line x1="1112" y1="942" x2="1148" y2="942" stroke="#e8b86d" stroke-width="1"/>
+    <text x="1112" y="956" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">user_id</text>
+    <text x="1112" y="974" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">plan</text>
+    <text x="1112" y="992" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">start_date</text>
+    <text x="1112" y="1010" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">end_date</text>
+    <text x="1112" y="1028" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">status</text>
+    <text x="1112" y="1046" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">auto_renew</text>
+  </g>
+  <g id="entity_PAYMENTS">
+    <rect x="1403" y="903" width="192" height="197" rx="8" ry="8" fill="rgba(0,0,0,0.3)"/>
+    <rect x="1400" y="900" width="192" height="197" rx="8" ry="8" fill="url(#entityGrad)" stroke="#4a7fa8" stroke-width="2"/>
+    <rect x="1400" y="900" width="192" height="30" rx="8" ry="8" fill="#3a6090"/>
+    <rect x="1400" y="920" width="192" height="10" fill="#3a6090"/>
+    <text x="1496" y="920" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">PAYMENTS</text>
+    <text x="1412" y="938" font-family="Monospace, monospace" font-size="11" fill="#e8b86d">payment_id</text>
+    <circle cx="1406" cy="934" r="4" fill="#e8b86d"/>
+    <line x1="1412" y1="942" x2="1472" y2="942" stroke="#e8b86d" stroke-width="1"/>
+    <text x="1412" y="956" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">sub_id</text>
+    <text x="1412" y="974" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">user_id</text>
+    <text x="1412" y="992" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">amount</text>
+    <text x="1412" y="1010" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">currency</text>
+    <text x="1412" y="1028" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">method</text>
+    <text x="1412" y="1046" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">transaction_id</text>
+    <text x="1412" y="1064" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">status</text>
+    <text x="1412" y="1082" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">payment_date</text>
+  </g>
+  <g id="entity_ADVERTISEMENTS">
+    <rect x="203" y="1203" width="184" height="269" rx="8" ry="8" fill="rgba(0,0,0,0.3)"/>
+    <rect x="200" y="1200" width="184" height="269" rx="8" ry="8" fill="url(#entityGrad)" stroke="#4a7fa8" stroke-width="2"/>
+    <rect x="200" y="1200" width="184" height="30" rx="8" ry="8" fill="#3a6090"/>
+    <rect x="200" y="1220" width="184" height="10" fill="#3a6090"/>
+    <text x="292" y="1220" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">ADVERTISEMENTS</text>
+    <text x="212" y="1238" font-family="Monospace, monospace" font-size="11" fill="#e8b86d">ad_id</text>
+    <circle cx="206" cy="1234" r="4" fill="#e8b86d"/>
+    <line x1="212" y1="1242" x2="242" y2="1242" stroke="#e8b86d" stroke-width="1"/>
+    <text x="212" y="1256" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">advertiser_id</text>
+    <text x="212" y="1274" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">title</text>
+    <text x="212" y="1292" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">content</text>
+    <text x="212" y="1310" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">target_url</text>
+    <text x="212" y="1328" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">image_url</text>
+    <text x="212" y="1346" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">impressions</text>
+    <text x="212" y="1364" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">clicks</text>
+    <text x="212" y="1382" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">budget</text>
+    <text x="212" y="1400" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">daily_budget</text>
+    <text x="212" y="1418" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">start_date</text>
+    <text x="212" y="1436" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">end_date</text>
+    <text x="212" y="1454" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">status</text>
+  </g>
+  <g id="entity_AD_CLICKS">
+    <rect x="503" y="1203" width="160" height="143" rx="8" ry="8" fill="rgba(0,0,0,0.3)"/>
+    <rect x="500" y="1200" width="160" height="143" rx="8" ry="8" fill="url(#entityGrad)" stroke="#4a7fa8" stroke-width="2"/>
+    <rect x="500" y="1200" width="160" height="30" rx="8" ry="8" fill="#3a6090"/>
+    <rect x="500" y="1220" width="160" height="10" fill="#3a6090"/>
+    <text x="580" y="1220" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">AD_CLICKS</text>
+    <text x="512" y="1238" font-family="Monospace, monospace" font-size="11" fill="#e8b86d">click_id</text>
+    <circle cx="506" cy="1234" r="4" fill="#e8b86d"/>
+    <line x1="512" y1="1242" x2="560" y2="1242" stroke="#e8b86d" stroke-width="1"/>
+    <text x="512" y="1256" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">ad_id</text>
+    <text x="512" y="1274" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">user_id</text>
+    <text x="512" y="1292" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">ip_address</text>
+    <text x="512" y="1310" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">user_agent</text>
+    <text x="512" y="1328" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">clicked_at</text>
+  </g>
+  <g id="entity_PAGE_VIEWS">
+    <rect x="803" y="1203" width="160" height="197" rx="8" ry="8" fill="rgba(0,0,0,0.3)"/>
+    <rect x="800" y="1200" width="160" height="197" rx="8" ry="8" fill="url(#entityGrad)" stroke="#4a7fa8" stroke-width="2"/>
+    <rect x="800" y="1200" width="160" height="30" rx="8" ry="8" fill="#3a6090"/>
+    <rect x="800" y="1220" width="160" height="10" fill="#3a6090"/>
+    <text x="880" y="1220" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">PAGE_VIEWS</text>
+    <text x="812" y="1238" font-family="Monospace, monospace" font-size="11" fill="#e8b86d">view_id</text>
+    <circle cx="806" cy="1234" r="4" fill="#e8b86d"/>
+    <line x1="812" y1="1242" x2="854" y2="1242" stroke="#e8b86d" stroke-width="1"/>
+    <text x="812" y="1256" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">post_id</text>
+    <text x="812" y="1274" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">user_id</text>
+    <text x="812" y="1292" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">session_id</text>
+    <text x="812" y="1310" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">ip_address</text>
+    <text x="812" y="1328" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">referrer</text>
+    <text x="812" y="1346" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">user_agent</text>
+    <text x="812" y="1364" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">view_date</text>
+    <text x="812" y="1382" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">duration</text>
+  </g>
+  <g id="entity_SEARCH_KEYWORDS">
+    <rect x="1103" y="1203" width="200" height="143" rx="8" ry="8" fill="rgba(0,0,0,0.3)"/>
+    <rect x="1100" y="1200" width="200" height="143" rx="8" ry="8" fill="url(#entityGrad)" stroke="#4a7fa8" stroke-width="2"/>
+    <rect x="1100" y="1200" width="200" height="30" rx="8" ry="8" fill="#3a6090"/>
+    <rect x="1100" y="1220" width="200" height="10" fill="#3a6090"/>
+    <text x="1200" y="1220" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">SEARCH_KEYWORDS</text>
+    <text x="1112" y="1238" font-family="Monospace, monospace" font-size="11" fill="#e8b86d">search_id</text>
+    <circle cx="1106" cy="1234" r="4" fill="#e8b86d"/>
+    <line x1="1112" y1="1242" x2="1166" y2="1242" stroke="#e8b86d" stroke-width="1"/>
+    <text x="1112" y="1256" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">user_id</text>
+    <text x="1112" y="1274" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">keyword</text>
+    <text x="1112" y="1292" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">results_count</text>
+    <text x="1112" y="1310" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">clicked_post_id</text>
+    <text x="1112" y="1328" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">searched_at</text>
+  </g>
+  <g id="entity_BOOKMARKS">
+    <rect x="1403" y="1203" width="184" height="125" rx="8" ry="8" fill="rgba(0,0,0,0.3)"/>
+    <rect x="1400" y="1200" width="184" height="125" rx="8" ry="8" fill="url(#entityGrad)" stroke="#4a7fa8" stroke-width="2"/>
+    <rect x="1400" y="1200" width="184" height="30" rx="8" ry="8" fill="#3a6090"/>
+    <rect x="1400" y="1220" width="184" height="10" fill="#3a6090"/>
+    <text x="1492" y="1220" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">BOOKMARKS</text>
+    <text x="1412" y="1238" font-family="Monospace, monospace" font-size="11" fill="#e8b86d">bookmark_id</text>
+    <circle cx="1406" cy="1234" r="4" fill="#e8b86d"/>
+    <line x1="1412" y1="1242" x2="1478" y2="1242" stroke="#e8b86d" stroke-width="1"/>
+    <text x="1412" y="1256" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">user_id</text>
+    <text x="1412" y="1274" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">post_id</text>
+    <text x="1412" y="1292" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">note</text>
+    <text x="1412" y="1310" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">bookmarked_at</text>
+  </g>
+  <g id="entity_NOTIFICATIONS">
+    <rect x="1703" y="1203" width="160" height="179" rx="8" ry="8" fill="rgba(0,0,0,0.3)"/>
+    <rect x="1700" y="1200" width="160" height="179" rx="8" ry="8" fill="url(#entityGrad)" stroke="#4a7fa8" stroke-width="2"/>
+    <rect x="1700" y="1200" width="160" height="30" rx="8" ry="8" fill="#3a6090"/>
+    <rect x="1700" y="1220" width="160" height="10" fill="#3a6090"/>
+    <text x="1780" y="1220" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">NOTIFICATIONS</text>
+    <text x="1712" y="1238" font-family="Monospace, monospace" font-size="11" fill="#e8b86d">notif_id</text>
+    <circle cx="1706" cy="1234" r="4" fill="#e8b86d"/>
+    <line x1="1712" y1="1242" x2="1760" y2="1242" stroke="#e8b86d" stroke-width="1"/>
+    <text x="1712" y="1256" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">user_id</text>
+    <text x="1712" y="1274" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">type</text>
+    <text x="1712" y="1292" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">title</text>
+    <text x="1712" y="1310" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">message</text>
+    <text x="1712" y="1328" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">link</text>
+    <text x="1712" y="1346" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">is_read</text>
+    <text x="1712" y="1364" font-family="Monospace, monospace" font-size="11" fill="#a0c0e0">created_at</text>
+  </g>
+  <g id="rel_writes">
+    <polygon points="450,300 510,360 450,420 390,360" fill="url(#relGrad)" stroke="#6a9fbf" stroke-width="2"/>
+    <text x="450" y="364" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#ffffff">writes</text>
+  </g>
+  <line x1="300" y1="230" x2="450" y2="300" stroke="#5a8fa8" stroke-width="2"/>
+  <line x1="450" y1="420" x2="800" y2="230" stroke="#5a8fa8" stroke-width="2"/>
+  <g id="rel_authors">
+    <polygon points="450,480 510,540 450,600 390,540" fill="url(#relGrad)" stroke="#6a9fbf" stroke-width="2"/>
+    <text x="450" y="544" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#ffffff">authors</text>
+  </g>
+  <line x1="300" y1="230" x2="450" y2="480" stroke="#5a8fa8" stroke-width="2"/>
+  <line x1="450" y1="600" x2="800" y2="700" stroke="#5a8fa8" stroke-width="2"/>
+  <g id="rel_has">
+    <polygon points="850,420 910,480 850,540 790,480" fill="url(#relGrad)" stroke="#6a9fbf" stroke-width="2"/>
+    <text x="850" y="484" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#ffffff">has</text>
+  </g>
+  <line x1="800" y1="230" x2="850" y2="420" stroke="#5a8fa8" stroke-width="2"/>
+  <line x1="850" y1="540" x2="800" y2="700" stroke="#5a8fa8" stroke-width="2"/>
+  <g id="rel_likes">
+    <polygon points="280,640 340,700 280,760 220,700" fill="url(#relGrad)" stroke="#6a9fbf" stroke-width="2"/>
+    <text x="280" y="704" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#ffffff">likes</text>
+  </g>
+  <line x1="300" y1="230" x2="280" y2="640" stroke="#5a8fa8" stroke-width="2"/>
+  <line x1="280" y1="760" x2="300" y2="950" stroke="#5a8fa8" stroke-width="2"/>
+  <g id="rel_has">
+    <polygon points="600,480 660,540 600,600 540,540" fill="url(#relGrad)" stroke="#6a9fbf" stroke-width="2"/>
+    <text x="600" y="544" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#ffffff">has</text>
+  </g>
+  <line x1="800" y1="230" x2="600" y2="480" stroke="#5a8fa8" stroke-width="2"/>
+  <line x1="600" y1="600" x2="300" y2="950" stroke="#5a8fa8" stroke-width="2"/>
+  <g id="rel_shares">
+    <polygon points="350,640 410,700 350,760 290,700" fill="url(#relGrad)" stroke="#6a9fbf" stroke-width="2"/>
+    <text x="350" y="704" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#ffffff">shares</text>
+  </g>
+  <line x1="300" y1="230" x2="350" y2="640" stroke="#5a8fa8" stroke-width="2"/>
+  <line x1="350" y1="760" x2="600" y2="950" stroke="#5a8fa8" stroke-width="2"/>
+  <g id="rel_has">
+    <polygon points="700,480 760,540 700,600 640,540" fill="url(#relGrad)" stroke="#6a9fbf" stroke-width="2"/>
+    <text x="700" y="544" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#ffffff">has</text>
+  </g>
+  <line x1="800" y1="230" x2="700" y2="480" stroke="#5a8fa8" stroke-width="2"/>
+  <line x1="700" y1="600" x2="600" y2="950" stroke="#5a8fa8" stroke-width="2"/>
+  <g id="rel_follows">
+    <polygon points="500,640 560,700 500,760 440,700" fill="url(#relGrad)" stroke="#6a9fbf" stroke-width="2"/>
+    <text x="500" y="704" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#ffffff">follows</text>
+  </g>
+  <line x1="300" y1="230" x2="500" y2="640" stroke="#5a8fa8" stroke-width="2"/>
+  <line x1="500" y1="760" x2="900" y2="950" stroke="#5a8fa8" stroke-width="2"/>
+  <g id="rel_subscribes">
+    <polygon points="650,640 710,700 650,760 590,700" fill="url(#relGrad)" stroke="#6a9fbf" stroke-width="2"/>
+    <text x="650" y="704" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#ffffff">subscribes</text>
+  </g>
+  <line x1="300" y1="230" x2="650" y2="640" stroke="#5a8fa8" stroke-width="2"/>
+  <line x1="650" y1="760" x2="1200" y2="950" stroke="#5a8fa8" stroke-width="2"/>
+  <g id="rel_generates">
+    <polygon points="1250,640 1310,700 1250,760 1190,700" fill="url(#relGrad)" stroke="#6a9fbf" stroke-width="2"/>
+    <text x="1250" y="704" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#ffffff">generates</text>
+  </g>
+  <line x1="1200" y1="950" x2="1250" y2="640" stroke="#5a8fa8" stroke-width="2"/>
+  <line x1="1250" y1="760" x2="1500" y2="950" stroke="#5a8fa8" stroke-width="2"/>
+  <g id="rel_advertises">
+    <polygon points="310,940 370,1000 310,1060 250,1000" fill="url(#relGrad)" stroke="#6a9fbf" stroke-width="2"/>
+    <text x="310" y="1004" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#ffffff">advertises</text>
+  </g>
+  <line x1="300" y1="230" x2="310" y2="940" stroke="#5a8fa8" stroke-width="2"/>
+  <line x1="310" y1="1060" x2="300" y2="1250" stroke="#5a8fa8" stroke-width="2"/>
+  <g id="rel_receives">
+    <polygon points="350,1040 410,1100 350,1160 290,1100" fill="url(#relGrad)" stroke="#6a9fbf" stroke-width="2"/>
+    <text x="350" y="1104" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#ffffff">receives</text>
+  </g>
+  <line x1="300" y1="1250" x2="350" y2="1040" stroke="#5a8fa8" stroke-width="2"/>
+  <line x1="350" y1="1160" x2="600" y2="1250" stroke="#5a8fa8" stroke-width="2"/>
+  <g id="rel_views">
+    <polygon points="500,940 560,1000 500,1060 440,1000" fill="url(#relGrad)" stroke="#6a9fbf" stroke-width="2"/>
+    <text x="500" y="1004" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#ffffff">views</text>
+  </g>
+  <line x1="300" y1="230" x2="500" y2="940" stroke="#5a8fa8" stroke-width="2"/>
+  <line x1="500" y1="1060" x2="900" y2="1250" stroke="#5a8fa8" stroke-width="2"/>
+  <g id="rel_has">
+    <polygon points="750,640 810,700 750,760 690,700" fill="url(#relGrad)" stroke="#6a9fbf" stroke-width="2"/>
+    <text x="750" y="704" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#ffffff">has</text>
+  </g>
+  <line x1="800" y1="230" x2="750" y2="640" stroke="#5a8fa8" stroke-width="2"/>
+  <line x1="750" y1="760" x2="900" y2="1250" stroke="#5a8fa8" stroke-width="2"/>
+  <g id="rel_searches">
+    <polygon points="650,940 710,1000 650,1060 590,1000" fill="url(#relGrad)" stroke="#6a9fbf" stroke-width="2"/>
+    <text x="650" y="1004" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#ffffff">searches</text>
+  </g>
+  <line x1="300" y1="230" x2="650" y2="940" stroke="#5a8fa8" stroke-width="2"/>
+  <line x1="650" y1="1060" x2="1200" y2="1250" stroke="#5a8fa8" stroke-width="2"/>
+  <g id="rel_bookmarks">
+    <polygon points="800,940 860,1000 800,1060 740,1000" fill="url(#relGrad)" stroke="#6a9fbf" stroke-width="2"/>
+    <text x="800" y="1004" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#ffffff">bookmarks</text>
+  </g>
+  <line x1="300" y1="230" x2="800" y2="940" stroke="#5a8fa8" stroke-width="2"/>
+  <line x1="800" y1="1060" x2="1500" y2="1250" stroke="#5a8fa8" stroke-width="2"/>
+  <g id="rel_has">
+    <polygon points="950,640 1010,700 950,760 890,700" fill="url(#relGrad)" stroke="#6a9fbf" stroke-width="2"/>
+    <text x="950" y="704" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#ffffff">has</text>
+  </g>
+  <line x1="800" y1="230" x2="950" y2="640" stroke="#5a8fa8" stroke-width="2"/>
+  <line x1="950" y1="760" x2="1500" y2="1250" stroke="#5a8fa8" stroke-width="2"/>
+  <g id="rel_receives">
+    <polygon points="900,940 960,1000 900,1060 840,1000" fill="url(#relGrad)" stroke="#6a9fbf" stroke-width="2"/>
+    <text x="900" y="1004" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#ffffff">receives</text>
+  </g>
+  <line x1="300" y1="230" x2="900" y2="940" stroke="#5a8fa8" stroke-width="2"/>
+  <line x1="900" y1="1060" x2="1800" y2="1250" stroke="#5a8fa8" stroke-width="2"/>
+  <g id="rel_categorized_in">
+    <polygon points="900,840 960,900 900,960 840,900" fill="url(#relGrad)" stroke="#6a9fbf" stroke-width="2"/>
+    <text x="900" y="904" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#ffffff">categorized_in</text>
+  </g>
+  <line x1="800" y1="230" x2="900" y2="840" stroke="#5a8fa8" stroke-width="2"/>
+  <line x1="900" y1="960" x2="1100" y2="1450" stroke="#5a8fa8" stroke-width="2"/>
+  <g id="rel_contains">
+    <polygon points="1100,840 1160,900 1100,960 1040,900" fill="url(#relGrad)" stroke="#6a9fbf" stroke-width="2"/>
+    <text x="1100" y="904" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#ffffff">contains</text>
+  </g>
+  <line x1="1300" y1="230" x2="1100" y2="840" stroke="#5a8fa8" stroke-width="2"/>
+  <line x1="1100" y1="960" x2="1100" y2="1450" stroke="#5a8fa8" stroke-width="2"/>
+  <g id="rel_tagged_in">
+    <polygon points="1000,840 1060,900 1000,960 940,900" fill="url(#relGrad)" stroke="#6a9fbf" stroke-width="2"/>
+    <text x="1000" y="904" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#ffffff">tagged_in</text>
+  </g>
+  <line x1="800" y1="230" x2="1000" y2="840" stroke="#5a8fa8" stroke-width="2"/>
+  <line x1="1000" y1="960" x2="1400" y2="1450" stroke="#5a8fa8" stroke-width="2"/>
+  <g id="rel_applied_to">
+    <polygon points="1450,840 1510,900 1450,960 1390,900" fill="url(#relGrad)" stroke="#6a9fbf" stroke-width="2"/>
+    <text x="1450" y="904" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#ffffff">applied_to</text>
+  </g>
+  <line x1="1700" y1="230" x2="1450" y2="840" stroke="#5a8fa8" stroke-width="2"/>
+  <line x1="1450" y1="960" x2="1400" y2="1450" stroke="#5a8fa8" stroke-width="2"/>
+  <rect x="100" y="1550" width="400" height="130" rx="8" ry="8" fill="rgba(30, 50, 70, 0.9)" stroke="#4a6fa5" stroke-width="1"/>
+  <text x="120" y="1572" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#7eb8da">Legend</text>
+  <rect x="115" y="1587" width="20" height="14" fill="#2a3f5f" stroke="#5a8fa8"/>
+  <text x="150" y="1599" font-family="Arial, sans-serif" font-size="12" fill="#a0c0e0">Entity (Strong)</text>
+  <rect x="115" y="1607" width="20" height="14" fill="#3a3550" stroke="#5a8fa8"/>
+  <text x="150" y="1619" font-family="Arial, sans-serif" font-size="12" fill="#a0c0e0">Entity (Weak)</text>
+  <polygon points="125,1627 135,1635 125,1643 115,1635" fill="#3d5a80" stroke="#5a8fa8"/>
+  <text x="150" y="1639" font-family="Arial, sans-serif" font-size="12" fill="#a0c0e0">Relationship</text>
+  <circle cx="125" cy="1655" r="6" fill="#e8b86d"/>
+  <text x="150" y="1659" font-family="Arial, sans-serif" font-size="12" fill="#a0c0e0">Primary Key</text>
+  <rect x="550" y="1550" width="500" height="130" rx="8" ry="8" fill="rgba(30, 50, 70, 0.9)" stroke="#4a6fa5" stroke-width="1"/>
+  <text x="570" y="1572" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#7eb8da">Cardinality Notation</text>
+  <text x="580" y="1600" font-family="Monospace, monospace" font-size="14" font-weight="bold" fill="#e8b86d">1</text>
+  <text x="630" y="1600" font-family="Arial, sans-serif" font-size="12" fill="#a0c0e0">One (exactly one)</text>
+  <text x="580" y="1625" font-family="Monospace, monospace" font-size="14" font-weight="bold" fill="#e8b86d">1..*</text>
+  <text x="630" y="1625" font-family="Arial, sans-serif" font-size="12" fill="#a0c0e0">One to Many</text>
+  <text x="580" y="1650" font-family="Monospace, monospace" font-size="14" font-weight="bold" fill="#e8b86d">0..*</text>
+  <text x="630" y="1650" font-family="Arial, sans-serif" font-size="12" fill="#a0c0e0">Zero to Many</text>
+</svg>
