@@ -1,0 +1,11 @@
+# Schematic Intimacy
+
+## Design Philosophy
+
+**Schematic Intimacy** is a visual language that transforms technical data architecture into intimate, human-readable cartography. It treats database schemas not as cold technical diagrams but as living ecosystems where entities breathe, relationships pulse, and data flows like water through carefully constructed pathways. The philosophy embraces the paradox of technical precision meeting organic warmth—a system that feels both rigorously engineered and naturally intuitive.
+
+The composition operates through hierarchical spatial organization where primary entities command attention through scale and presence while supporting tables cluster in logical constellations around them. A dark foundation grounds the visualization while carefully calibrated accent colors distinguish entity types: users emerge as the central sun around which content orbits, posts function as satellites with their own gravitational fields of comments and interactions, and metadata tables arrange as peripheral systems barely visible at the edges. Every element receives meticulous placement—the product of countless refinements—with relationship lines drawn as elegant arcs that never intersect, following the golden ratio for their curvature.
+
+Typography serves as both information carrier and visual texture, with entity names rendered in bold condensed type that anchors each table box, column names in thin monospace that whispers data structure without shouting, and key metrics (row counts) displayed in delicate italic that adds rhythm without competing for attention. Color temperature shifts subtly across the canvas: warm highlights on primary entities, cooler tones on transactional tables, monochromatic restraint on junction tables that exist purely to facilitate relationships. The palette remains cohesive—deep navy backgrounds, warm white text, a curated selection of accent colors that feel like they've been hand-selected by a master colorist over many hours of contemplation.
+
+This is not merely an ER diagram. It is a portrait of a system's anatomy, rendered with the care and precision of anatomical illustrations from the golden age of scientific publishing—where every line served function, every shade communicated depth, and the whole composition achieved the status of artifact worthy of display.
