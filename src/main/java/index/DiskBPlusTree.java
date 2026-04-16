@@ -196,6 +196,96 @@ public class DiskBPlusTree {
         return null;
     }
 
+    public void delete(int key) throws IOException {
+        Page rootPage = diskManager.readPage(rootPageId);
+        deleteRecursive(rootPage, key);
+    }
+
+    private boolean deleteRecursive(Page node, int key) throws IOException {
+        if (node.getPageType() == 1) { // Leaf
+            return deleteFromLeaf(node, key);
+        } else { // Internal
+            int childId = findChild(node, key);
+            if (childId == -1) return false;
+            Page child = diskManager.readPage(childId);
+            boolean deleted = deleteRecursive(child, key);
+            if (deleted) {
+                // If child is now empty, remove its pointer from this node
+                byte[] childData = child.getData();
+                int childFreeSpace = child.getfreeSpaceOffset();
+                if (childFreeSpace == 0 && child.getPageType() == 1) {
+                    removeFromInternal(node, childId);
+                }
+            }
+            return deleted;
+        }
+    }
+
+    private boolean deleteFromLeaf(Page node, int key) throws IOException {
+        byte[] data = node.getData();
+        int freeSpace = node.getfreeSpaceOffset();
+        for (int i = 0; i < freeSpace; i += 8) {
+            int k = java.nio.ByteBuffer.wrap(data, HEADER_SIZE + i, 4).getInt();
+            if (k == key) {
+                // Compact: shift remaining entries left to cover this one
+                int remaining = freeSpace - i - 8;
+                System.arraycopy(data, HEADER_SIZE + i + 8, data, HEADER_SIZE + i, remaining);
+                node.setFreeSpaceOffset(freeSpace - 8);
+                diskManager.writePage(node);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void removeFromInternal(Page node, int childPageId) throws IOException {
+        byte[] data = node.getData();
+        int freeSpace = node.getfreeSpaceOffset();
+        for (int i = 0; i < freeSpace; i += 8) {
+            int cId = java.nio.ByteBuffer.wrap(data, HEADER_SIZE + i + 4, 4).getInt();
+            if (cId == childPageId) {
+                int remaining = freeSpace - i - 8;
+                System.arraycopy(data, HEADER_SIZE + i + 8, data, HEADER_SIZE + i, remaining);
+                node.setFreeSpaceOffset(freeSpace - 8);
+                diskManager.writePage(node);
+                return;
+            }
+        }
+    }
+
+    /**
+     * Bulk insert from sorted key-value entries.
+     * Used by Compaction to build new dense index efficiently.
+     */
+    public void bulkInsert(List<int[]> entries) throws IOException {
+        if (entries.isEmpty()) return;
+
+        // Create leaf pages sequentially
+        int firstLeafPageId = -1;
+        int lastLeafPageId = -1;
+        int maxEntriesPerPage = ORDER;
+
+        for (int i = 0; i < entries.size(); i += maxEntriesPerPage) {
+            Page leaf = new Page(diskManager.getPageCount(), (byte) 1);
+            int end = Math.min(i + maxEntriesPerPage, entries.size());
+            for (int j = i; j < end; j++) {
+                byte[] entry = new byte[8];
+                java.nio.ByteBuffer.wrap(entry).putInt(entries.get(j)[0]).putInt(entries.get(j)[1]);
+                leaf.insertRecord(entry);
+            }
+            if (firstLeafPageId == -1) firstLeafPageId = leaf.getPageId();
+            if (lastLeafPageId != -1) {
+                Page prevLeaf = diskManager.readPage(lastLeafPageId);
+                prevLeaf.setNextPageId(leaf.getPageId());
+                diskManager.writePage(prevLeaf);
+            }
+            lastLeafPageId = leaf.getPageId();
+            diskManager.writePage(leaf);
+        }
+
+        updateRoot(firstLeafPageId);
+    }
+
     public void flush() throws IOException {
         diskManager.flush();
     }

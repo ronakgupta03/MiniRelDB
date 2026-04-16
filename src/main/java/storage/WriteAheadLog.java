@@ -17,7 +17,7 @@ public class WriteAheadLog {
         this.out = new DataOutputStream(new FileOutputStream(walPath, true));
     }
 
-    public void append(byte opType, DBRecord record) throws IOException {
+    public synchronized void append(byte opType, DBRecord record) throws IOException {
         out.writeByte(opType);
         byte[] data = record.toBytes();
         out.writeInt(data.length);
@@ -25,13 +25,13 @@ public class WriteAheadLog {
         out.flush();
     }
 
-    public void clear() throws IOException {
+    public synchronized void clear() throws IOException {
         out.close();
         new File(walPath).delete();
         this.out = new DataOutputStream(new FileOutputStream(walPath, true));
     }
 
-    public List<LogEntry> recover() throws IOException {
+    public synchronized List<LogEntry> recover() throws IOException {
         List<LogEntry> entries = new ArrayList<>();
         File file = new File(walPath);
         if (!file.exists()) return entries;
@@ -61,7 +61,7 @@ public class WriteAheadLog {
         }
     }
 
-    public void close() throws IOException {
+    public synchronized void close() throws IOException {
         if (out != null) out.close();
     }
 }

@@ -127,7 +127,11 @@ public class DBRecord {
     public Object getValue(String colName) {
         return values.get(colName);
     }
-
+    
+    public void setValue(String colName, Object val) {
+        values.put(colName, val);
+    }
+    
     public Map<String, Object> getValues() {
         return values;
     }

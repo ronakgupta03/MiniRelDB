@@ -36,10 +36,14 @@ public class sqlParser {
         } else if (lowerQuery.startsWith("create index")) {
             return parseCreateIndex();
         } else if (lowerQuery.startsWith("show ")) {
-            String type = query.substring(5).trim().toUpperCase().replace(";", "");
-            if (type.equals("DATABASE") || type.equals("DATABASES")) type = "DATABASES";
-            if (type.equals("TABLE") || type.equals("TABLES")) type = "TABLES";
-            return new ShowQuery(type);
+            String type = lowerQuery.substring(5).trim().replace(";", "");
+            if (type.equals("database") || type.equals("databases")) {
+                return new ShowQuery("DATABASES");
+            }
+            if (type.equals("table") || type.equals("tables")) {
+                return new ShowQuery("TABLES");
+            }
+            throw new IllegalArgumentException("Unknown SHOW type: " + type);
         } else if (lowerQuery.startsWith("drop ")) {
             return parseDrop();
         } else {

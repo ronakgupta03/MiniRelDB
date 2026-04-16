@@ -1,22 +1,18 @@
 package buffer;
 
 import storage.Page;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class BufferManager {
     private final int capacity;
-    private final Map<String, Page> cache;
+    private final ConcurrentHashMap<String, Page> cache = new ConcurrentHashMap<>();
+    private final LinkedBlockingQueue<String> lruQueue = new LinkedBlockingQueue<>();
+    private final ReentrantLock evictionLock = new ReentrantLock();
 
     public BufferManager(int capacity) {
         this.capacity = capacity;
-        // LinkedHashMap with accessOrder=true for LRU behavior
-        this.cache = new LinkedHashMap<String, Page>(capacity, 0.75f, true) {
-            @Override
-            protected boolean removeEldestEntry(Map.Entry<String, Page> eldest) {
-                return size() > BufferManager.this.capacity;
-            }
-        };
     }
 
     public Page getPage(String key) {
@@ -24,7 +20,11 @@ public class BufferManager {
     }
 
     public void putPage(String key, Page page) {
+        if (!cache.containsKey(key) && cache.size() >= capacity) {
+            evictOldest();
+        }
         cache.put(key, page);
+        lruQueue.offer(key);
     }
 
     public void evict(String key) {
@@ -33,5 +33,18 @@ public class BufferManager {
 
     public void clear() {
         cache.clear();
+        lruQueue.clear();
+    }
+
+    private void evictOldest() {
+        evictionLock.lock();
+        try {
+            String evicted = lruQueue.poll();
+            if (evicted != null) {
+                cache.remove(evicted);
+            }
+        } finally {
+            evictionLock.unlock();
+        }
     }
 }

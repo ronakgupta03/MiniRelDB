@@ -11,12 +11,12 @@ public class BloomFilter {
         this.bits = new BitSet(size);
     }
 
-    public void add(int id) {
+    public synchronized void add(int id) {
         bits.set(hash1(id));
         bits.set(hash2(id));
     }
 
-    public boolean mightContain(int id) {
+    public synchronized boolean mightContain(int id) {
         return bits.get(hash1(id)) && bits.get(hash2(id));
     }
 

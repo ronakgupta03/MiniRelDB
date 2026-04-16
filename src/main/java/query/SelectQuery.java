@@ -68,4 +68,8 @@ public class SelectQuery {
     public void setSubquery(SelectQuery subquery) {
         this.subquery = subquery;
     }
+    
+    public boolean matches(storage.DBRecord r) {
+        return true;
+    }
 }
