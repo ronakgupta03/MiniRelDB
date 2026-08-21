@@ -49,12 +49,8 @@ public class DiskManager {
         return page;
     }
 
-    public int getTotalPages() throws IOException {
-
-        java.io.File file = new java.io.File(filePath);
-
-        long fileSize = file.length();
-
-        return (int) (fileSize / Page.PAGE_SIZE);
+    public int getPageCount() throws IOException {
+        long length = dbFile.length();
+        return (int) (length / Page.PAGE_SIZE);
     }
 }

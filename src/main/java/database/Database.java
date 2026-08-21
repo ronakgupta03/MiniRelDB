@@ -1,6 +1,6 @@
 public class Database {
     
-    public void start(){
+    public static void main(String[] args) {
         System.out.println("MiniRelDB started");
     }
 }

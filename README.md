@@ -6,6 +6,7 @@ MiniRelDB is a **custom relational database engine** implemented entirely in Jav
 
 The project evolved through three distinct phases:
 
+
 1. **Phase 1** — Console over SQLite via JDBC (learned query execution and transactions)
 2. **Phase 2** — Removed SQLite, moved to file-based storage (learned logical vs. physical storage)
 3. **Phase 3** — Binary page-based storage engine with fixed-size 4096-byte pages, HeapFile management, multi-page persistence, and an interactive REPL console
