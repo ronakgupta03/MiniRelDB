@@ -27,34 +27,21 @@ public class Executor {
 
     public List<DBRecord> executeSelect(SelectQuery query) throws Exception {
         if (query.hasIdFilter()) {
-            Integer pageId = index.search(query.getId());
-            if (pageId == null) {
-                return java.util.Collections.emptyList();
+            // Search through all records for the matching ID
+            List<DBRecord> allRecords = heapFile.getAllRecords();
+            for (DBRecord record : allRecords) {
+                if (record.getId() == query.getId()) {
+                    return java.util.List.of(record);
+                }
             }
-            DBRecord record = heapFile.getRecordByPageId(pageId);
-            if (record == null) {
-                return java.util.Collections.emptyList();
-            }
-            return java.util.List.of(record);
+            return java.util.Collections.emptyList();
         }
 
         return heapFile.getAllRecords();
     }
 
     public void executeUpdate(UpdateQuery query) throws Exception {
-        // Stub: Find and update the record with matching ID
-        List<DBRecord> records = heapFile.getAllRecords();
-        for (int i = 0; i < records.size(); i++) {
-            DBRecord record = records.get(i);
-            if (record.getId() == query.getId()) {
-                // Update the record
-                DBRecord updated = new DBRecord(record.getId(), query.getNewName());
-                // For simplicity, assume we can update in place, but since pages are separate, this is approximate
-                // In a real system, we'd need to update the page
-                System.out.println("Updated record with ID " + query.getId());
-                break;
-            }
-        }
+        heapFile.updateRecord(query.getId(), query.getNewName());
     }
 
     public void executeDelete(DeleteQuery query) throws Exception {

@@ -39,6 +39,7 @@ public class Main {
                     
                     if (parsedQuery instanceof InsertQuery) {
                         executor.executeInsert((InsertQuery) parsedQuery);
+                        heapFile.flush();
                         System.out.println("Insert executed.");
                     } else if (parsedQuery instanceof SelectQuery) {
                         List<DBRecord> results = executor.executeSelect((SelectQuery) parsedQuery);
@@ -48,6 +49,7 @@ public class Main {
                         }
                     } else if (parsedQuery instanceof UpdateQuery) {
                         executor.executeUpdate((UpdateQuery) parsedQuery);
+                        heapFile.flush();
                         System.out.println("Update executed.");
                     } else if (parsedQuery instanceof DeleteQuery) {
                         executor.executeDelete((DeleteQuery) parsedQuery);
