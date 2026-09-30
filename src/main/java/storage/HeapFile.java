@@ -1,137 +1,180 @@
 package storage;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.ArrayList;
 import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class HeapFile {
 
     private DiskManager diskManager;
     private int nextPageId;
     private Page currentPage;
+    private final ReadWriteLock rwLock = new ReentrantReadWriteLock();
 
     public HeapFile(DiskManager diskManager) throws IOException {
         this.diskManager = diskManager;
         this.nextPageId = diskManager.getPageCount();
-        this.currentPage = new Page(nextPageId);
+        // If no pages exist yet, create current page at page 0
+        if (this.nextPageId == 0) {
+            this.currentPage = new Page(0, (byte) 1);
+            this.nextPageId = 1;
+        }
     }
 
     public int insertRecord(DBRecord record) throws IOException {
-
-        byte[] recordBytes = record.toBytes();
-
-        boolean success = currentPage.insertRecord(recordBytes);
-
-        if (!success) {
-            // Page full -> write it to disk
-            diskManager.writePage(currentPage);
-            System.out.println("Page " + currentPage.getPageId() + " full, writing to disk");
-
-            // Create new page and insert there
-            nextPageId++;
-            currentPage = new Page(nextPageId);
-            success = currentPage.insertRecord(recordBytes);
-            if (!success) {
-                throw new IOException("Record is too large to fit in a single page");
+        rwLock.writeLock().lock();
+        try {
+            if (currentPage == null) {
+                currentPage = new Page(nextPageId, (byte) 1);
+                nextPageId++;
             }
-        }
 
-        return currentPage.getPageId();
+            byte[] recordBytes = record.toBytes();
+            boolean success = currentPage.insertRecord(recordBytes);
+
+            if (!success) {
+                // Page full -> write it to disk
+                diskManager.writePage(currentPage);
+                // System.out.println("Page " + currentPage.getPageId() + " full, writing to disk");
+
+                // Create new page
+                currentPage = new Page(nextPageId, (byte) 1);
+                nextPageId++;
+
+                // Insert into the new page
+                currentPage.insertRecord(recordBytes);
+            }
+
+            return currentPage.getPageId();
+        } finally {
+            rwLock.writeLock().unlock();
+        }
     }
 
     public java.util.List<DBRecord> getAllRecords() throws IOException {
-        java.util.List<DBRecord> records = new java.util.ArrayList<>();
-        int pageCount = diskManager.getPageCount();
+        rwLock.readLock().lock();
+        try {
+            java.util.List<DBRecord> records = new java.util.ArrayList<>();
+            int pageCount = diskManager.getPageCount();
 
-        for (int i = 0; i < pageCount; i++) {
-            Page page = diskManager.readPage(i);
-            records.addAll(readRecordsFromPage(page));
+            // PHASE 2.3 OPTIMIZATION: Read all pages sequentially, skip tombstoned records
+            // The buffer pool (now 1000 pages) should cache all pages for small tables
+            for (int i = 0; i < pageCount; i++) {
+                Page page = diskManager.readPage(i);
+                List<DBRecord> pageRecords = page.getAllRecords();
+                for (DBRecord r : pageRecords) {
+                    if (!r.isDeleted()) {
+                        records.add(r);
+                    }
+                }
+            }
+
+            if (currentPage != null) {
+                List<DBRecord> currentRecords = currentPage.getAllRecords();
+                for (DBRecord r : currentRecords) {
+                    if (!r.isDeleted()) {
+                        records.add(r);
+                    }
+                }
+            }
+
+            return records;
+        } finally {
+            rwLock.readLock().unlock();
         }
-
-        if (currentPage != null && !isPageEmpty(currentPage.getData()) && currentPage.getPageId() >= pageCount) {
-            records.addAll(readRecordsFromPage(currentPage));
-        }
-
-        return records;
     }
 
-    public DBRecord getRecordByPageId(int pageId) throws IOException {
-        Page page = diskManager.readPage(pageId);
-        java.util.List<DBRecord> records = readRecordsFromPage(page);
-        for (DBRecord record : records) {
-            if (!record.isDeleted()) {
-                return record;
+    public void updateRecordInPlace(int pageId, DBRecord record) throws IOException {
+        rwLock.writeLock().lock();
+        try {
+            Page page = diskManager.readPage(pageId);
+            List<Page.RecordWithOffset> records = page.getAllRecordsWithOffsets();
+            for (Page.RecordWithOffset rO : records) {
+                if (rO.record.getId() == record.getId()) {
+                    byte[] updatedBytes = record.toBytes();
+                    byte[] pageData = page.getData();
+                    int copyLen = Math.min(updatedBytes.length, rO.length);
+                    System.arraycopy(updatedBytes, 0, pageData, rO.offset + 4, copyLen);
+                    diskManager.writePage(page);
+                    return;
+                }
             }
+        } finally {
+            rwLock.writeLock().unlock();
         }
-        return null;
+    }
+
+    public DBRecord getRecordByPageId(int pageId, int id) throws IOException {
+        rwLock.readLock().lock();
+        try {
+            Page page = diskManager.readPage(pageId);
+            List<DBRecord> records = page.getAllRecordsWithTombstones();
+            for (DBRecord record : records) {
+                if (record.getId() == id) {
+                    return record;
+                }
+            }
+
+            // Also check current page if pageId matches
+            if (currentPage != null && currentPage.getPageId() == pageId) {
+                List<DBRecord> currentRecords = currentPage.getAllRecordsWithTombstones();
+                for (DBRecord record : currentRecords) {
+                    if (record.getId() == id) {
+                        return record;
+                    }
+                }
+            }
+
+            return null;
+        } finally {
+            rwLock.readLock().unlock();
+        }
     }
 
     public void deleteRecord(int id) throws IOException {
-        int pageCount = diskManager.getPageCount();
-        for (int i = 0; i < pageCount; i++) {
-            Page page = diskManager.readPage(i);
-            byte[] data = page.getData();
-            if (data.length == 0 || isPageEmpty(data)) {
-                continue;
-            }
+        rwLock.writeLock().lock();
+        try {
+            int pageCount = diskManager.getPageCount();
+            for (int i = 0; i < pageCount; i++) {
+                Page page = diskManager.readPage(i);
+                List<Page.RecordWithOffset> records = page.getAllRecordsWithOffsets();
 
-            int freeSpaceOffset = ByteBuffer.wrap(data, 0, 4).getInt();
-            int offset = 4;
-            int end = 4 + freeSpaceOffset;
-
-            while (offset + 9 <= end) {
-                boolean deleted = data[offset] == 1;
-                int recordId = ByteBuffer.wrap(data, offset + 1, 4).getInt();
-                int nameLength = ByteBuffer.wrap(data, offset + 5, 4).getInt();
-
-                if (recordId == id && !deleted) {
-                    data[offset] = 1;
-                    page.setData(data);
-                    diskManager.writePage(page);
-                    System.out.println("Deleted record with ID " + id);
-                    return;
+                for (Page.RecordWithOffset rO : records) {
+                    DBRecord record = rO.record;
+                    if (record.getId() == id && !record.isDeleted()) {
+                        record.setDeleted(true);
+                        byte[] updatedBytes = record.toBytes();
+                        byte[] pageData = page.getData();
+                        // length prefix at 'rO.offset', record at 'rO.offset + 4'
+                        System.arraycopy(updatedBytes, 0, pageData, rO.offset + 4, Math.min(updatedBytes.length, rO.length));
+                        diskManager.writePage(page);
+                        // System.out.println("Deleted record with ID " + id + " from page " + i);
+                        return;
+                    }
                 }
-
-                offset += 1 + 4 + 4 + nameLength;
-            }
-        }
-        System.out.println("Record with ID " + id + " not found.");
-    }
-
-    private java.util.List<DBRecord> readRecordsFromPage(Page page) {
-        java.util.List<DBRecord> records = new java.util.ArrayList<>();
-        byte[] data = page.getData();
-        if (isPageEmpty(data)) {
-            return records;
-        }
-
-        int freeSpaceOffset = ByteBuffer.wrap(data, 0, 4).getInt();
-        int offset = 4;
-        int end = 4 + freeSpaceOffset;
-
-        while (offset + 9 <= end) {
-            boolean deleted = data[offset] == 1;
-            offset += 1;
-            int recordId = ByteBuffer.wrap(data, offset, 4).getInt();
-            offset += 4;
-            int nameLength = ByteBuffer.wrap(data, offset, 4).getInt();
-            offset += 4;
-
-            if (nameLength <= 0 || offset + nameLength > end) {
-                break;
             }
 
-            byte[] nameBytes = new byte[nameLength];
-            System.arraycopy(data, offset, nameBytes, 0, nameLength);
-            offset += nameLength;
-
-            String name = new String(nameBytes, StandardCharsets.UTF_8);
-            if (!deleted) {
-                records.add(new DBRecord(recordId, name));
+            if (currentPage != null) {
+                List<Page.RecordWithOffset> records = currentPage.getAllRecordsWithOffsets();
+                for (Page.RecordWithOffset rO : records) {
+                    DBRecord record = rO.record;
+                    if (record.getId() == id && !record.isDeleted()) {
+                        record.setDeleted(true);
+                        byte[] updatedBytes = record.toBytes();
+                        System.arraycopy(updatedBytes, 0, currentPage.getData(), rO.offset + 4, Math.min(updatedBytes.length, rO.length));
+                        // System.out.println("Deleted record with ID " + id + " from current page.");
+                        return;
+                    }
+                }
             }
-        }
 
-        return records;
+            // System.out.println("Record with ID " + id + " not found.");
+        } finally {
+            rwLock.writeLock().unlock();
+        }
     }
 
     private boolean isPageEmpty(byte[] data) {
@@ -144,76 +187,33 @@ public class HeapFile {
     }
 
     public void flush() throws IOException {
-        if (currentPage != null && !isPageEmpty(currentPage.getData())) {
-            diskManager.writePage(currentPage);
-            System.out.println("Flushed page " + currentPage.getPageId() + " to disk");
-        }
-    }
-
-    public void updateRecord(int id, String newName) throws IOException {
-        int pageCount = diskManager.getPageCount();
-        for (int i = 0; i < pageCount; i++) {
-            Page page = diskManager.readPage(i);
-            byte[] data = page.getData();
-            if (isPageEmpty(data)) {
-                continue;
+        rwLock.writeLock().lock();
+        try {
+            if (currentPage != null) {
+                diskManager.writePage(currentPage);
+                // System.out.println("Flushed page " + currentPage.getPageId() + " to disk");
             }
-
-            if (updateRecordInPage(page, id, newName)) {
-                diskManager.writePage(page);
-                System.out.println("Updated record with ID " + id);
-                return;
-            }
+            diskManager.flush();
+        } finally {
+            rwLock.writeLock().unlock();
         }
-
-        if (currentPage != null && updateRecordInPage(currentPage, id, newName)) {
-            diskManager.writePage(currentPage);
-            System.out.println("Updated record with ID " + id);
-            return;
-        }
-
-        System.out.println("Record with ID " + id + " not found.");
-    }
-
-    private boolean updateRecordInPage(Page page, int id, String newName) throws IOException {
-        byte[] data = page.getData();
-        if (isPageEmpty(data)) {
-            return false;
-        }
-
-        int freeSpaceOffset = ByteBuffer.wrap(data, 0, 4).getInt();
-        int offset = 4;
-        int end = 4 + freeSpaceOffset;
-
-        while (offset + 9 <= end) {
-            boolean deleted = data[offset] == 1;
-            int recordId = ByteBuffer.wrap(data, offset + 1, 4).getInt();
-            int nameLength = ByteBuffer.wrap(data, offset + 5, 4).getInt();
-
-            if (!deleted && recordId == id) {
-                byte[] newNameBytes = newName.getBytes(StandardCharsets.UTF_8);
-                if (newNameBytes.length == nameLength) {
-                    System.arraycopy(newNameBytes, 0, data, offset + 9, nameLength);
-                    page.setData(data);
-                    return true;
-                } else {
-                    data[offset] = 1;
-                    page.setData(data);
-                    diskManager.writePage(page);
-
-                    DBRecord newRecord = new DBRecord(id, newName);
-                    insertRecord(newRecord);
-                    return true;
-                }
-            }
-
-            offset += 1 + 4 + 4 + nameLength;
-        }
-
-        return false;
     }
 
     public Page getCurrentPage() {
-        return currentPage;
+        rwLock.readLock().lock();
+        try {
+            return currentPage;
+        } finally {
+            rwLock.readLock().unlock();
+        }
+    }
+
+    public DiskManager getDiskManager() {
+        rwLock.readLock().lock();
+        try {
+            return diskManager;
+        } finally {
+            rwLock.readLock().unlock();
+        }
     }
 }

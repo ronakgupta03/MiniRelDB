@@ -27,6 +27,10 @@ public class BPlusTree {
         }
     }
 
+    public void delete(int key) {
+        root.delete(key);
+    }
+
     public Integer search(int key) {
         return root.search(key);
     }
@@ -50,12 +54,24 @@ public class BPlusTree {
         List<Integer> keys = new ArrayList<>();
 
         abstract Split insert(int key, int value);
+        abstract void delete(int key);
         abstract Integer search(int key);
         abstract LeafNode getFirstLeaf();
     }
 
     private class InternalNode extends Node {
         List<Node> children = new ArrayList<>();
+
+        @Override
+        void delete(int key) {
+            int idx = Collections.binarySearch(keys, key);
+            if (idx >= 0) {
+                idx++;
+            } else {
+                idx = -idx - 1;
+            }
+            children.get(idx).delete(key);
+        }
 
         @Override
         Split insert(int key, int value) {
@@ -120,6 +136,15 @@ public class BPlusTree {
     private class LeafNode extends Node {
         List<Integer> values = new ArrayList<>();
         LeafNode next;
+
+        @Override
+        void delete(int key) {
+            int idx = Collections.binarySearch(keys, key);
+            if (idx >= 0) {
+                keys.remove(idx);
+                values.remove(idx);
+            }
+        }
 
         @Override
         Split insert(int key, int value) {
