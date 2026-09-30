@@ -287,21 +287,24 @@ public class Executor {
     private List<DBRecord> executeSelectInternal(SelectQuery query) throws Exception {
         String tableName = query.getBaseTable();
         List<DBRecord> results = new ArrayList<>();
+        Set<Integer> seenIds = new HashSet<>();
         
         storage.MemTable memTable = memTables.get(tableName);
         if (memTable != null) {
             for (DBRecord r : memTable.getAll()) {
+                seenIds.add(r.getId());
                 if (!r.isDeleted()) results.add(r);
             }
         }
         HeapFile hf = heapFiles.get(tableName);
         if (hf != null) {
             for (DBRecord r : hf.getAllRecords()) {
-                r.applySchema(catalogManager.getTableSchema(dbName, tableName));
-                if (!r.isDeleted()) results.add(r);
+                if (!seenIds.contains(r.getId())) {
+                    r.applySchema(catalogManager.getTableSchema(dbName, tableName));
+                    if (!r.isDeleted()) results.add(r);
+                }
             }
         }
-
         List<DBRecord> filtered = new ArrayList<>();
         for (DBRecord r : results) {
             if (query.matches(r)) filtered.add(r);

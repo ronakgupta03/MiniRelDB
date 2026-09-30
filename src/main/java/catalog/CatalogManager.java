@@ -150,7 +150,7 @@ public class CatalogManager {
                 }
             } catch (IOException e) { e.printStackTrace(); }
         } finally {
-            rwLock.readLock().unlock();
+            rwLock.writeLock().unlock();
         }
     }
 
